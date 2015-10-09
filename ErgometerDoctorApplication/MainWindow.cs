@@ -28,7 +28,7 @@ namespace ErgometerDoctorApplication
 
         private void BtnSessionLibrary_Click(object sender, EventArgs e)
         {
-            this.HeaderLabel.Text = "Bibliotheek";
+            this.HeaderLabel.Text = "Sessie Bibliotheek";
             conActiveSessions.Visible = false;
             conClientData.Visible = false;
             conSessionHistory.Visible = false;
