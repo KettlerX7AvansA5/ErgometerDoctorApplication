@@ -15,6 +15,8 @@ namespace ErgometerDoctorApplication
         public MainWindow()
         {
             InitializeComponent();
+            LoginWindow login = new LoginWindow();
+            login.Show(this);
         }
 
         private void BtnActiveSessions_Click(object sender, EventArgs e)
