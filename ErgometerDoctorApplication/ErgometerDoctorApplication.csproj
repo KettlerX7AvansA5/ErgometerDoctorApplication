@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ErgometerLibrary">
-      <HintPath>..\..\..\ErgometerLibrary\ErgometerLibrary\ErgometerLibrary\bin\Debug\ErgometerLibrary.dll</HintPath>
+      <HintPath>..\..\ErgometerLibrary\ErgometerLibrary\obj\Debug\ErgometerLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -49,6 +49,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SessionWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SessionWindow.Designer.cs">
+      <DependentUpon>SessionWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="ConClientData.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -64,12 +70,6 @@
     <Compile Include="ConSessionLibrary.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LoginWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoginWindow.Designer.cs">
-      <DependentUpon>LoginWindow.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainClient.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -79,9 +79,6 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LoginWindow.resx">
-      <DependentUpon>LoginWindow.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,6 +92,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="SessionWindow.resx">
+      <DependentUpon>SessionWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

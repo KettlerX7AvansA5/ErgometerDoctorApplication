@@ -43,6 +43,18 @@ namespace ErgometerDoctorApplication
         }
         public void validateLogin()
         {
+            //enter login details
+            showDashboard();
+        }
+
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            //logout
+            showLoginScreen();
+        }
+
+        private void showDashboard()
+        {
             conPanelLogin.Visible = false;
             MainContainer.Visible = true;
             panel1.Visible = true;
@@ -50,7 +62,7 @@ namespace ErgometerDoctorApplication
             menuStrip1.Visible = true;
         }
 
-        private void buttonLogout_Click(object sender, EventArgs e)
+        private void showLoginScreen()
         {
             MainContainer.Visible = false;
             panel1.Visible = false;
