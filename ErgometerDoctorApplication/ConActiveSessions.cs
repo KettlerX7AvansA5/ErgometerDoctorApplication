@@ -9,6 +9,7 @@ namespace ErgometerDoctorApplication
 {
     public class ConActiveSessions : Panel
     {
+
         public ConActiveSessions() : base()
         {
             // 
@@ -20,7 +21,6 @@ namespace ErgometerDoctorApplication
             this.Size = new System.Drawing.Size(584, 459);
             this.TabIndex = 0;
 
-            this.BackColor = System.Drawing.Color.Green;
         }
     }
 }

@@ -31,6 +31,7 @@ namespace ErgometerDoctorApplication
         private void InitializeComponent()
         {
             this.MenuPanel = new System.Windows.Forms.Panel();
+            this.BtnLogout = new System.Windows.Forms.Button();
             this.BtnSessionLibrary = new System.Windows.Forms.Button();
             this.BtnSessionHistory = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,19 +47,20 @@ namespace ErgometerDoctorApplication
             this.HeaderLabel = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.MainContainer = new System.Windows.Forms.Panel();
-            this.conActiveSessions = new ConActiveSessions();
-            this.conSessionHistory = new ConSessionHistory();
-            this.conClientData = new ConClientData();
-            this.conSessionLibrary = new ConSessionLibrary();
-            this.MenuPanel.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.MainContainer.SuspendLayout();
-            this.SuspendLayout();
+            this.conActiveSessions = new ErgometerDoctorApplication.ConActiveSessions();
+            this.conClientData = new ErgometerDoctorApplication.ConClientData();
+            this.conSessionHistory = new ErgometerDoctorApplication.ConSessionHistory();
+            this.conSessionLibrary = new ErgometerDoctorApplication.ConSessionLibrary();
+            this.conPanelLogin = new ErgometerDoctorApplication.ConPanelLogin(this);
+            MainContainer.Visible = false;
+            panel1.Visible = false;
+            MenuPanel.Visible = false;
+            menuStrip1.Visible = false;
             // 
             // MenuPanel
             // 
             this.MenuPanel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.MenuPanel.Controls.Add(this.BtnLogout);
             this.MenuPanel.Controls.Add(this.BtnSessionLibrary);
             this.MenuPanel.Controls.Add(this.BtnSessionHistory);
             this.MenuPanel.Controls.Add(this.label2);
@@ -72,6 +74,21 @@ namespace ErgometerDoctorApplication
             this.MenuPanel.Name = "MenuPanel";
             this.MenuPanel.Size = new System.Drawing.Size(200, 537);
             this.MenuPanel.TabIndex = 0;
+
+            // 
+            // BtnLogout
+            // 
+            this.BtnLogout.BackColor = System.Drawing.Color.DarkGray;
+            this.BtnLogout.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BtnLogout.FlatAppearance.BorderSize = 0;
+            this.BtnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnLogout.ForeColor = System.Drawing.Color.White;
+            this.BtnLogout.Location = new System.Drawing.Point(0, 205);
+            this.BtnLogout.Name = "BtnLogout";
+            this.BtnLogout.Size = new System.Drawing.Size(200, 35);
+            this.BtnLogout.Text = "Uitloggen";
+            this.BtnLogout.UseVisualStyleBackColor = false;
+            this.BtnLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
             // BtnSessionLibrary
             // 
@@ -235,15 +252,10 @@ namespace ErgometerDoctorApplication
             // 
             // MainContainer
             // 
-
-            // First panel added gets priority
             this.MainContainer.Controls.Add(this.conActiveSessions);
             this.MainContainer.Controls.Add(this.conClientData);
             this.MainContainer.Controls.Add(this.conSessionHistory);
             this.MainContainer.Controls.Add(this.conSessionLibrary);
-
-
-
             this.MainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainContainer.Location = new System.Drawing.Point(200, 102);
             this.MainContainer.Name = "MainContainer";
@@ -259,17 +271,11 @@ namespace ErgometerDoctorApplication
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.conPanelLogin);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "Dokter applicatie";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.MenuPanel.ResumeLayout(false);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.MainContainer.ResumeLayout(false);
-            this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -284,6 +290,7 @@ namespace ErgometerDoctorApplication
         private ToolStripMenuItem viewToolStripMenuItem;
         private Button BtnActiveSessions;
         private Button BtnSessionLibrary;
+        private Button BtnLogout;
         private Button BtnSessionHistory;
         private Button BtnClientData;
         private Label label2;
@@ -296,6 +303,8 @@ namespace ErgometerDoctorApplication
         public ConSessionHistory conSessionHistory;
         public ConClientData conClientData;
         public ConSessionLibrary conSessionLibrary;
+        public ConPanelLogin conPanelLogin;
+        
     }
 }
 

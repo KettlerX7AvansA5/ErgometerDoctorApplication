@@ -15,42 +15,49 @@ namespace ErgometerDoctorApplication
         public MainWindow()
         {
             InitializeComponent();
+            conPanelLogin.BringToFront();
         }
 
         private void BtnActiveSessions_Click(object sender, EventArgs e)
         {
             this.HeaderLabel.Text = "Actieve Sessies";
-            conActiveSessions.Visible = true;
-            conClientData.Visible = false;
-            conSessionHistory.Visible = false;
-            conSessionLibrary.Visible = false;
+            conActiveSessions.BringToFront();
         }
 
         private void BtnSessionLibrary_Click(object sender, EventArgs e)
         {
             this.HeaderLabel.Text = "Bibliotheek";
-            conActiveSessions.Visible = false;
-            conClientData.Visible = false;
-            conSessionHistory.Visible = false;
-            conSessionLibrary.Visible = true;
+            conSessionLibrary.BringToFront();
         }
 
         private void BtnClientData_Click(object sender, EventArgs e)
         {
             this.HeaderLabel.Text = "Clientenbestand";
-            conActiveSessions.Visible = false;
-            conClientData.Visible = true;
-            conSessionHistory.Visible = false;
-            conSessionLibrary.Visible = false;
+            conClientData.BringToFront();
         }
 
         private void BtnSessionHistory_Click(object sender, EventArgs e)
         {
             this.HeaderLabel.Text = "Sessie geschiedenis";
-            conActiveSessions.Visible = false;
-            conClientData.Visible = false;
-            conSessionHistory.Visible = true;
-            conSessionLibrary.Visible = false;
+            conSessionHistory.BringToFront();
+        }
+        public void validateLogin()
+        {
+            conPanelLogin.Visible = false;
+            MainContainer.Visible = true;
+            panel1.Visible = true;
+            MenuPanel.Visible = true;
+            menuStrip1.Visible = true;
+        }
+
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            MainContainer.Visible = false;
+            panel1.Visible = false;
+            MenuPanel.Visible = false;
+            menuStrip1.Visible = false;
+            conPanelLogin.Visible = true;
+            conPanelLogin.BringToFront();
         }
     }
 }
