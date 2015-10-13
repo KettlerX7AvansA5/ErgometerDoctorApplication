@@ -12,6 +12,7 @@ namespace ErgometerDoctorApplication
 
         public ConActiveSessions() : base()
         {
+            this.labelActiveSessions = new System.Windows.Forms.Label();
             // 
             // ConActiveSessions
             // 
@@ -20,7 +21,19 @@ namespace ErgometerDoctorApplication
             this.Name = "ConActiveSessions";
             this.Size = new System.Drawing.Size(584, 459);
             this.TabIndex = 0;
-
+            // 
+            // labelPassword
+            // 
+            this.labelActiveSessions.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelActiveSessions.AutoSize = true;
+            this.labelActiveSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelActiveSessions.Location = new System.Drawing.Point(0, 0);
+            this.labelActiveSessions.Name = "labelActiveSessions";
+            this.labelActiveSessions.Size = new System.Drawing.Size(103, 21);
+            this.labelActiveSessions.TabIndex = 3;
+            this.labelActiveSessions.Text = "Geen actieve sessies.";
         }
+
+        public System.Windows.Forms.Label labelActiveSessions;
     }
 }

@@ -14,15 +14,22 @@ namespace ErgometerDoctorApplication
 
         public static TcpClient Server { get; }
 
-        public static bool Loggedin;
+        public static bool loggedin;
 
         private static Thread t;
         private static bool running;
 
-        private static int Session;
+        public static int Session;
 
         public static string HOST = "127.0.0.1";
         public static int PORT = 8888;
+
+
+        //Server information
+        public static List<ClientThread> clients;
+        public static Dictionary<string, string> users;
+        public static List<int> oldsessions;
+        public static Dictionary<int, string> activesessions;
 
         static MainClient()
         {
@@ -30,7 +37,12 @@ namespace ErgometerDoctorApplication
 
             t = new Thread(run);
 
-            Loggedin = false;
+            loggedin = false;
+
+            clients = new List<ClientThread>();
+            users = new Dictionary<string, string>();
+            oldsessions = new List<int>();
+            activesessions = new Dictionary<int, string>();
         }
 
         public static bool Connect(string password)
@@ -49,7 +61,7 @@ namespace ErgometerDoctorApplication
                 t.Start();
             }
 
-            if (!Loggedin)
+            if (!loggedin)
             {
                 NetCommand command = new NetCommand("Doctor0tVfW", true, password, Session);
                 NetHelper.SendNetCommand(Server, command);
@@ -57,11 +69,11 @@ namespace ErgometerDoctorApplication
                 NetCommand response = NetHelper.ReadNetCommand(Server);
                 if (response.Type == NetCommand.CommandType.RESPONSE && response.Response == NetCommand.ResponseType.LOGINWRONG)
                 {
-                    Loggedin = false;
+                    loggedin = false;
                     return false;
                 }
 
-                Loggedin = true;
+                loggedin = true;
             }
 
             return true;
@@ -73,9 +85,8 @@ namespace ErgometerDoctorApplication
             if (Server.Connected)
             {
                 NetHelper.SendNetCommand(Server, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
-                Loggedin = false;
-                Server.Close();
-                running = false;
+                loggedin = false;
+                running = false; 
             }
         }
 
@@ -86,14 +97,68 @@ namespace ErgometerDoctorApplication
                 if (Server.Connected && Server.Available > 0)
                 {
                     NetCommand command = NetHelper.ReadNetCommand(Server);
-                    HandToClient(command);
+                    switch(command.Type)
+                    {
+                        case NetCommand.CommandType.LENGTH:
+                            switch(command.Length)
+                            {
+                                case NetCommand.LengthType.USERS:
+                                    users.Clear();
+                                    for(int i=0; i<command.LengthValue; i++)
+                                    {
+                                        NetCommand c = NetHelper.ReadNetCommand(Server);
+                                        if(c.Type == NetCommand.CommandType.USER)
+                                        {
+                                            users.Add(c.DisplayName, c.Password);
+                                        }
+                                    }
+                                    break;
+                                case NetCommand.LengthType.SESSIONS:
+                                    oldsessions.Clear();
+                                    for (int i = 0; i < command.LengthValue; i++)
+                                    {
+                                        NetCommand c = NetHelper.ReadNetCommand(Server);
+                                        if (c.Type == NetCommand.CommandType.SESSION)
+                                        {
+                                            oldsessions.Add(c.Session);
+                                        }
+                                    }
+                                    break;
+                                case NetCommand.LengthType.SESSIONDATA:
+                                    activesessions.Clear();
+                                    for (int i = 0; i < command.LengthValue; i++)
+                                    {
+                                        NetCommand c = NetHelper.ReadNetCommand(Server);
+                                        if (c.Type == NetCommand.CommandType.SESSIONDATA)
+                                        {
+                                            activesessions.Add(c.Session, c.DisplayName);
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    throw new FormatException("Error in NetCommand: Length type is not recognised");
+                            }
+                            break;
+                        default:
+                            HandToClient(command);
+                            break;
+                    }
+                    
                 }
             }
+
+            Server.Close();
         }
 
         private static void HandToClient(NetCommand command)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            Console.WriteLine(command);
+        }
+
+        public static void SendNetCommand(NetCommand command)
+        {
+            NetHelper.SendNetCommand(Server, command);
         }
     }
 }

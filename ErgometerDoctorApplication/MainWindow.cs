@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErgometerLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,8 +21,17 @@ namespace ErgometerDoctorApplication
 
         private void BtnActiveSessions_Click(object sender, EventArgs e)
         {
+            MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, MainClient.Session));
             this.HeaderLabel.Text = "Actieve Sessies";
             conActiveSessions.BringToFront();
+
+            string str = "";
+            foreach(string name in MainClient.activesessions.Values)
+            {
+                str += name + ", ";
+            }
+            conActiveSessions.labelActiveSessions.Text = str;
+            Console.WriteLine(str);
         }
 
         private void BtnSessionLibrary_Click(object sender, EventArgs e)
@@ -43,13 +53,22 @@ namespace ErgometerDoctorApplication
         }
         public void validateLogin()
         {
-            //enter login details
-            showDashboard();
+            if (MainClient.Connect(conPanelLogin.textBoxPassword.Text))
+            {
+                conPanelLogin.textBoxPassword.Text = "";
+                conPanelLogin.labelLoginInfo.Text = "";
+                showDashboard();
+            }
+            else
+            {
+                conPanelLogin.labelLoginInfo.Text = "Password incorrect";
+                showLoginScreen();
+            }
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            //logout
+            MainClient.Disconnect();
             showLoginScreen();
         }
 

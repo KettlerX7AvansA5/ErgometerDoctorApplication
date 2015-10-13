@@ -19,11 +19,13 @@ namespace ErgometerDoctorApplication
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.labelPassword = new System.Windows.Forms.Label();
+            this.labelLoginInfo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             // 
             // Container
             // 
             this.BackColor = System.Drawing.Color.White;
+            this.Controls.Add(this.labelLoginInfo);
             this.Controls.Add(this.labelPassword);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.pictureBox1);
@@ -74,6 +76,18 @@ namespace ErgometerDoctorApplication
             this.labelPassword.Size = new System.Drawing.Size(103, 21);
             this.labelPassword.TabIndex = 3;
             this.labelPassword.Text = "Wachtwoord";
+            //
+            // labelLoginInfo
+            //
+            this.labelLoginInfo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelLoginInfo.AutoSize = true;
+            this.labelLoginInfo.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelLoginInfo.ForeColor = System.Drawing.Color.Red;
+            this.labelLoginInfo.Location = new System.Drawing.Point(11, 140);
+            this.labelLoginInfo.Name = "labelLoginInfo";
+            this.labelLoginInfo.Size = new System.Drawing.Size(103, 21);
+            this.labelLoginInfo.TabIndex = 4;
+            this.labelLoginInfo.Text = "";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 
         }
@@ -86,6 +100,7 @@ namespace ErgometerDoctorApplication
         private PictureBox pictureBox1;
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Label labelPassword;
+        public System.Windows.Forms.Label labelLoginInfo;
     }
     
 }
