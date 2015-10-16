@@ -17,6 +17,7 @@ namespace ErgometerDoctorApplication
         {
             InitializeComponent();
             conPanelLogin.BringToFront();
+            updateTimer.Start();
         }
 
         private void BtnActiveSessions_Click(object sender, EventArgs e)
@@ -89,6 +90,11 @@ namespace ErgometerDoctorApplication
             menuStrip1.Visible = false;
             conPanelLogin.Visible = true;
             conPanelLogin.BringToFront();
+        }
+
+        private void updateTimer_tick(object sender, EventArgs e)
+        {
+            MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, MainClient.Session));
         }
     }
 }

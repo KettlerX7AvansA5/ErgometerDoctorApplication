@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace ErgometerDoctorApplication
 {
@@ -52,6 +53,7 @@ namespace ErgometerDoctorApplication
             this.conSessionHistory = new ErgometerDoctorApplication.ConSessionHistory();
             this.conSessionLibrary = new ErgometerDoctorApplication.ConSessionLibrary();
             this.conPanelLogin = new ErgometerDoctorApplication.ConPanelLogin(this);
+            this.updateTimer = new Timer();
             MainContainer.Visible = false;
             panel1.Visible = false;
             MenuPanel.Visible = false;
@@ -131,6 +133,11 @@ namespace ErgometerDoctorApplication
             this.label2.TabIndex = 6;
             this.label2.Text = "SESSIE BEHEER";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            //
+            // updateTimer
+            //
+            this.updateTimer.Interval = 10000;
+            this.updateTimer.Tick += new EventHandler(this.updateTimer_tick);
             // 
             // label1
             // 
@@ -298,6 +305,7 @@ namespace ErgometerDoctorApplication
         private Panel panel1;
         private Panel panel3;
         public Label HeaderLabel;
+        public Timer updateTimer;
         public Panel MainContainer;
         public ConActiveSessions conActiveSessions;
         public ConSessionHistory conSessionHistory;
