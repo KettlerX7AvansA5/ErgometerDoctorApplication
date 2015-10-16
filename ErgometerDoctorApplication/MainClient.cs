@@ -29,6 +29,12 @@ namespace ErgometerDoctorApplication
         public static List<ClientThread> clients;
         public static Dictionary<string, string> users;
         public static List<int> oldsessions;
+
+        public static void RemoveActiveClient(ClientThread clientThread)
+        {
+            clients.Remove(clientThread);
+        }
+
         public static Dictionary<int, string> activesessions;
 
         static MainClient()
@@ -75,6 +81,8 @@ namespace ErgometerDoctorApplication
 
                 loggedin = true;
             }
+
+            SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, Session));
 
             return true;
         }
@@ -152,13 +160,43 @@ namespace ErgometerDoctorApplication
 
         private static void HandToClient(NetCommand command)
         {
-            //throw new NotImplementedException();
-            Console.WriteLine(command);
+            foreach(ClientThread cl in clients)
+            {
+                if(cl.Session == command.Session)
+                {
+                    cl.HandleCommand(command);
+                }
+            }
         }
 
         public static void SendNetCommand(NetCommand command)
         {
             NetHelper.SendNetCommand(Server, command);
+        }
+
+        private static bool IsSessionRunning(int session)
+        {
+            foreach(ClientThread cl in clients)
+            {
+                if (cl.Session == session)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static void StartNewCLient(string name, int session)
+        {
+            if (IsSessionRunning(session))
+                return;
+
+            //Start new client
+            ClientThread cl = new ClientThread(name, session);
+            clients.Add(cl);
+
+            //Run client on new thread
+            Thread thread = new Thread(new ThreadStart(cl.run));
+            thread.Start();
         }
     }
 }

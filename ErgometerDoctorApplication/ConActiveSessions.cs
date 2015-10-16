@@ -22,7 +22,7 @@ namespace ErgometerDoctorApplication
             this.Size = new System.Drawing.Size(584, 459);
             this.TabIndex = 0;
             // 
-            // labelPassword
+            // labelActiveSessions
             // 
             this.labelActiveSessions.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelActiveSessions.AutoSize = true;
@@ -32,6 +32,8 @@ namespace ErgometerDoctorApplication
             this.labelActiveSessions.Size = new System.Drawing.Size(103, 21);
             this.labelActiveSessions.TabIndex = 3;
             this.labelActiveSessions.Text = "Geen actieve sessies.";
+
+            this.Controls.Add(labelActiveSessions);
         }
 
         public System.Windows.Forms.Label labelActiveSessions;
