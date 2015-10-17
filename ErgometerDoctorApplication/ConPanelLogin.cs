@@ -38,8 +38,10 @@ namespace ErgometerDoctorApplication
             this.textBoxPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.textBoxPassword.Location = new System.Drawing.Point(15, 70);
             this.textBoxPassword.Name = "textBoxPassword";
+            this.textBoxPassword.PasswordChar = '*';
             this.textBoxPassword.Size = new System.Drawing.Size(150, 20);
             this.textBoxPassword.TabIndex = 0;
+            this.textBoxPassword.KeyDown += TextBoxPassword_KeyDown;
             // 
             // pictureBox1
             // 
@@ -90,6 +92,14 @@ namespace ErgometerDoctorApplication
             this.labelLoginInfo.Text = "";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 
+        }
+
+        private void TextBoxPassword_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonLogin_Click(this, new EventArgs());
+            }
         }
 
         private void buttonLogin_Click(object sender, EventArgs e)
