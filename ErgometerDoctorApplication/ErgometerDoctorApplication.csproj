@@ -58,6 +58,9 @@
     <Compile Include="ChatItem.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="SessionTable.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ClientThread.cs" />
     <Compile Include="PanelClientChat.cs">
       <SubType>Component</SubType>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -9,9 +10,10 @@ namespace ErgometerDoctorApplication
 {
     public class ConActiveSessions : Panel
     {
-
+        public DataGridView data;
         public ConActiveSessions() : base()
         {
+            this.data = new DataGridView();
             this.labelActiveSessions = new System.Windows.Forms.Label();
             // 
             // ConActiveSessions
