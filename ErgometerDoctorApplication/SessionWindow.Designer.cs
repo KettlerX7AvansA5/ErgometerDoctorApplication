@@ -37,7 +37,7 @@ namespace ErgometerDoctorApplication
             this.panelClientContainer = new System.Windows.Forms.Panel();
             this.panelDataViewLeft = new System.Windows.Forms.Panel();
             this.panelGraphView = new ErgometerDoctorApplication.PanelGraphView();
-            this.panelClientChat = new ErgometerDoctorApplication.PanelClientChat(Session);
+            this.panelClientChat = new ErgometerDoctorApplication.PanelClientChat(Session, ClientName);
             this.panelTopBar = new System.Windows.Forms.Panel();
             this.labelUsername = new System.Windows.Forms.Label();
             this.labelHallo = new System.Windows.Forms.Label();
@@ -133,6 +133,7 @@ namespace ErgometerDoctorApplication
             this.Controls.Add(this.panelTopBar);
             this.Controls.Add(this.panelClientContainer);
             this.Name = "SessionWindow";
+            this.Text = "Sessie: " + ClientName;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Resize += new System.EventHandler(this.ClientApplicatie_Resize);
             this.panelClientContainer.ResumeLayout(false);

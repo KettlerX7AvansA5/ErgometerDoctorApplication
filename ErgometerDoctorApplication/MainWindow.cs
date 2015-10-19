@@ -54,7 +54,10 @@ namespace ErgometerDoctorApplication
         }
         public void validateLogin()
         {
-            if (MainClient.Connect(conPanelLogin.textBoxPassword.Text))
+            string error = "";
+            bool connect = MainClient.Connect(conPanelLogin.textBoxPassword.Text, out error);
+
+            if (connect)
             {
                 conPanelLogin.textBoxPassword.Text = "";
                 conPanelLogin.labelLoginInfo.Text = "";
@@ -62,7 +65,7 @@ namespace ErgometerDoctorApplication
             }
             else
             {
-                conPanelLogin.labelLoginInfo.Text = "Password incorrect";
+                conPanelLogin.labelLoginInfo.Text = error;
                 showLoginScreen();
             }
         }

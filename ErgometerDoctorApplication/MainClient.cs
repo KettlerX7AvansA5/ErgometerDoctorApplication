@@ -51,11 +51,21 @@ namespace ErgometerDoctorApplication
             activesessions = new Dictionary<int, string>();
         }
 
-        public static bool Connect(string password)
+        public static bool Connect(string password, out string error)
         {
+            error = "Succes";
+
             if (!Server.Connected)
             {
-                Server.Connect(HOST, PORT);
+                try
+                {
+                    Server.Connect(HOST, PORT);
+                }
+                catch(Exception e)
+                {
+                    error = "Server is niet online.";
+                    return false;
+                }
 
                 NetCommand net = NetHelper.ReadNetCommand(Server);
                 if (net.Type == NetCommand.CommandType.SESSION)
@@ -64,6 +74,7 @@ namespace ErgometerDoctorApplication
                     throw new Exception("Session not assigned");
 
                 running = true;
+                t.IsBackground = true;
                 t.Start();
             }
 
@@ -76,6 +87,7 @@ namespace ErgometerDoctorApplication
                 if (response.Type == NetCommand.CommandType.RESPONSE && response.Response == NetCommand.ResponseType.LOGINWRONG)
                 {
                     loggedin = false;
+                    error = "Het wachtwoord is onjuist.";
                     return false;
                 }
 
@@ -196,6 +208,7 @@ namespace ErgometerDoctorApplication
 
             //Run client on new thread
             Thread thread = new Thread(new ThreadStart(cl.run));
+            thread.IsBackground = true;
             thread.Start();
         }
     }

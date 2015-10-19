@@ -273,7 +273,8 @@ namespace ErgometerDoctorApplication
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(700, 500);
+            this.MinimumSize = new System.Drawing.Size(550, 450);
             this.Controls.Add(this.MainContainer);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuPanel);

@@ -43,8 +43,9 @@ namespace ErgometerDoctorApplication
                     SaveMeting(command.Meting);
                     break;
                 case NetCommand.CommandType.CHAT:
-                    Chat.Add(new ChatMessage(Name, command.ChatMessage, false));
-                    window.panelClientChat.Invoke(window.panelClientChat.passChatMessage, new Object[] { command.ChatMessage, Helper.MillisecondsToTime(command.Timestamp), false });
+                    ChatMessage chat = new ChatMessage(command.DisplayName, command.ChatMessage, false);
+                    Chat.Add(chat);
+                    window.panelClientChat.Invoke(window.panelClientChat.passChatMessage, new Object[] { chat });
                     break;
             }
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ErgometerLibrary;
+using ErgometerLibrary.Chat;
 
 namespace ErgometerDoctorApplication
 {
@@ -21,9 +22,10 @@ namespace ErgometerDoctorApplication
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label connectionLabel;
-        private int session;
 
-        public PanelClientChat(int session) : base()
+        private int Session { get; }
+
+        public PanelClientChat(int session, string name) : base()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -33,7 +35,8 @@ namespace ErgometerDoctorApplication
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.session = session;
+
+            Session = session;
 
             this.panel3 = new System.Windows.Forms.Panel();
             // 
@@ -68,7 +71,7 @@ namespace ErgometerDoctorApplication
             this.connectionLabel.Name = "connectionLabel";
             this.connectionLabel.Size = new System.Drawing.Size(112, 13);
             this.connectionLabel.TabIndex = 0;
-            this.connectionLabel.Text = "Now connected with:";
+            this.connectionLabel.Text = "Now connected with: " + name;
             // 
             // label2
             // 
@@ -102,7 +105,7 @@ namespace ErgometerDoctorApplication
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 90);
             this.button1.TabIndex = 1;
-            this.button1.Text = "Verstuur";
+            this.button1.Text = "Send";
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -149,25 +152,15 @@ namespace ErgometerDoctorApplication
         {
             if (richTextBox1.TextLength > 1)
             {
-                AddChatItem(richTextBox1.Text, Helper.MillisecondsToTime(Helper.Now), true);
-                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, session));
+                AddChatItem(new ChatMessage("Doctor", richTextBox1.Text, true));
+                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, Session));
                 richTextBox1.ResetText();
             }
         }
 
-        public void AddChatItem(string text)
+        public void AddChatItem(ChatMessage chat)
         {
-            flowLayoutPanel1.Controls.Add(new ChatItem(text, Helper.MillisecondsToTime(Helper.Now), false));
-        }
-
-        public void AddChatItem(string text, bool isDoctor)
-        {
-            flowLayoutPanel1.Controls.Add(new ChatItem(text, Helper.MillisecondsToTime(Helper.Now), isDoctor));
-        }
-
-        public void AddChatItem(string text, string time, bool isDoctor)
-        {
-            flowLayoutPanel1.Controls.Add(new ChatItem(text, time, isDoctor));
+            flowLayoutPanel1.Controls.Add(new ChatItem(chat));
         }
 
         private void panel3_MouseWheel(object sender, MouseEventArgs e)
@@ -203,10 +196,11 @@ namespace ErgometerDoctorApplication
             if (e.KeyCode == Keys.Enter)
             {
                 button1_Click(this, new EventArgs());
+                e.Handled = true;
             }
         }
 
-        public delegate void ChatDelegate(string message, string time, bool isDoctor);
+        public delegate void ChatDelegate(ChatMessage chat);
         public ChatDelegate passChatMessage;
     }
 }
