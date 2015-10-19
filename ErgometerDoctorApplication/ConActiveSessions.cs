@@ -14,7 +14,27 @@ namespace ErgometerDoctorApplication
         public ConActiveSessions() : base()
         {
             this.data = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.labelActiveSessions = new System.Windows.Forms.Label();
+            // 
+            // SongsTableView
+            // 
+            this.data.AllowUserToAddRows = false;
+            this.data.AllowUserToDeleteRows = false;
+            this.data.AllowUserToResizeRows = false;
+            this.data.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.data.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.data.Location = new System.Drawing.Point(0, 0);
+            this.data.MultiSelect = false;
+            this.data.Name = "Active Sessions";
+            this.data.ReadOnly = true;
+            this.data.RowHeadersVisible = false;
+            this.data.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.data.Size = new System.Drawing.Size(760, 172);
+            this.data.TabIndex = 0;
             // 
             // ConActiveSessions
             // 
