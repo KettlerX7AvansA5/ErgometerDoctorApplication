@@ -15,10 +15,13 @@ namespace ErgometerDoctorApplication
 
         private bool ActiveSession { get; }
         private string ClientName { get; set; }
-        public SessionWindow(string ClientName, bool ActiveSession)
+        public int Session { get; }
+
+        public SessionWindow(string ClientName, bool ActiveSessionm, int session)
         {
             this.ActiveSession = ActiveSession;
             this.ClientName = ClientName;
+            Session = session;
             InitializeComponent();
 
             Form.CheckForIllegalCrossThreadCalls = false;

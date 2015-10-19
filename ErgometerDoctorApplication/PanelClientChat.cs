@@ -21,8 +21,9 @@ namespace ErgometerDoctorApplication
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label connectionLabel;
+        private int session;
 
-        public PanelClientChat() : base()
+        public PanelClientChat(int session) : base()
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -32,6 +33,7 @@ namespace ErgometerDoctorApplication
             this.panel1 = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.session = session;
 
             this.panel3 = new System.Windows.Forms.Panel();
             // 
@@ -140,7 +142,7 @@ namespace ErgometerDoctorApplication
             this.Name = "container";
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.panel3_MouseWheel);
 
-            Form.CheckForIllegalCrossThreadCalls = false;
+            passChatMessage = new ChatDelegate(this.AddChatItem);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -148,7 +150,7 @@ namespace ErgometerDoctorApplication
             if (richTextBox1.TextLength > 1)
             {
                 AddChatItem(richTextBox1.Text, Helper.MillisecondsToTime(Helper.Now), true);
-                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, MainClient.Session));
+                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, session));
                 richTextBox1.ResetText();
             }
         }
@@ -203,5 +205,8 @@ namespace ErgometerDoctorApplication
                 button1_Click(this, new EventArgs());
             }
         }
+
+        public delegate void ChatDelegate(string message, string time, bool isDoctor);
+        public ChatDelegate passChatMessage;
     }
 }

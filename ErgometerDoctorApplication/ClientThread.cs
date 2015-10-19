@@ -23,7 +23,7 @@ namespace ErgometerDoctorApplication
             Name = name;
             Session = session;
 
-            window = new SessionWindow(Name, true);
+            window = new SessionWindow(Name, true, Session);
             window.FormClosed += Window_FormClosed;
 
             Metingen = new List<Meting>();
@@ -37,14 +37,14 @@ namespace ErgometerDoctorApplication
 
         public void HandleCommand(NetCommand command)
         {
-            switch(command.Type)
+            switch (command.Type)
             {
                 case NetCommand.CommandType.DATA:
                     SaveMeting(command.Meting);
                     break;
                 case NetCommand.CommandType.CHAT:
                     Chat.Add(new ChatMessage(Name, command.ChatMessage, false));
-                    window.panelClientChat.AddChatItem(command.ChatMessage);
+                    window.panelClientChat.Invoke(window.panelClientChat.passChatMessage, new Object[] { command.ChatMessage, Helper.MillisecondsToTime(command.Timestamp), false });
                     break;
             }
         }
