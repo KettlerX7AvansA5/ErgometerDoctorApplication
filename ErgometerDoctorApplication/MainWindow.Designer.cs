@@ -33,7 +33,6 @@ namespace ErgometerDoctorApplication
         {
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.BtnLogout = new System.Windows.Forms.Button();
-            this.BtnSessionLibrary = new System.Windows.Forms.Button();
             this.BtnSessionHistory = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -51,7 +50,6 @@ namespace ErgometerDoctorApplication
             this.conActiveSessions = new ErgometerDoctorApplication.ConActiveSessions();
             this.conClientData = new ErgometerDoctorApplication.ConClientData();
             this.conSessionHistory = new ErgometerDoctorApplication.ConSessionHistory();
-            this.conSessionLibrary = new ErgometerDoctorApplication.ConSessionLibrary();
             this.conPanelLogin = new ErgometerDoctorApplication.ConPanelLogin(this);
             this.updateTimer = new Timer();
             MainContainer.Visible = false;
@@ -63,7 +61,6 @@ namespace ErgometerDoctorApplication
             // 
             this.MenuPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.MenuPanel.Controls.Add(this.BtnLogout);
-            this.MenuPanel.Controls.Add(this.BtnSessionLibrary);
             this.MenuPanel.Controls.Add(this.BtnSessionHistory);
             this.MenuPanel.Controls.Add(this.label2);
             this.MenuPanel.Controls.Add(this.label1);
@@ -91,21 +88,6 @@ namespace ErgometerDoctorApplication
             this.BtnLogout.Text = "Uitloggen";
             this.BtnLogout.UseVisualStyleBackColor = false;
             this.BtnLogout.Click += new System.EventHandler(this.buttonLogout_Click);
-            // 
-            // BtnSessionLibrary
-            // 
-            this.BtnSessionLibrary.BackColor = System.Drawing.Color.DarkGray;
-            this.BtnSessionLibrary.Dock = System.Windows.Forms.DockStyle.Top;
-            this.BtnSessionLibrary.FlatAppearance.BorderSize = 0;
-            this.BtnSessionLibrary.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.BtnSessionLibrary.ForeColor = System.Drawing.Color.White;
-            this.BtnSessionLibrary.Location = new System.Drawing.Point(0, 205);
-            this.BtnSessionLibrary.Name = "BtnSessionLibrary";
-            this.BtnSessionLibrary.Size = new System.Drawing.Size(200, 35);
-            this.BtnSessionLibrary.TabIndex = 8;
-            this.BtnSessionLibrary.Text = "Sessie Bibliotheek";
-            this.BtnSessionLibrary.UseVisualStyleBackColor = false;
-            this.BtnSessionLibrary.Click += new System.EventHandler(this.BtnSessionLibrary_Click);
             // 
             // BtnSessionHistory
             // 
@@ -262,7 +244,6 @@ namespace ErgometerDoctorApplication
             this.MainContainer.Controls.Add(this.conActiveSessions);
             this.MainContainer.Controls.Add(this.conClientData);
             this.MainContainer.Controls.Add(this.conSessionHistory);
-            this.MainContainer.Controls.Add(this.conSessionLibrary);
             this.MainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainContainer.Location = new System.Drawing.Point(200, 102);
             this.MainContainer.Name = "MainContainer";
@@ -297,7 +278,6 @@ namespace ErgometerDoctorApplication
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem viewToolStripMenuItem;
         private Button BtnActiveSessions;
-        private Button BtnSessionLibrary;
         private Button BtnLogout;
         private Button BtnSessionHistory;
         private Button BtnClientData;
@@ -311,7 +291,6 @@ namespace ErgometerDoctorApplication
         public ConActiveSessions conActiveSessions;
         public ConSessionHistory conSessionHistory;
         public ConClientData conClientData;
-        public ConSessionLibrary conSessionLibrary;
         public ConPanelLogin conPanelLogin;
         
     }

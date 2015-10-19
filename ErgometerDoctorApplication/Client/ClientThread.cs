@@ -13,17 +13,20 @@ namespace ErgometerDoctorApplication
         public int Session { get; }
         public string Name { get; }
 
+        public bool IsOldData { get; }
+
         private SessionWindow window;
 
-        public List<Meting> Metingen { get; }
+        public List<Meting> Metingen { get; set; }
         public List<ChatMessage> Chat { get; }
 
-        public ClientThread(string name, int session)
+        public ClientThread(string name, int session, bool old)
         {
             Name = name;
             Session = session;
+            IsOldData = old;
 
-            window = new SessionWindow(Name, true, Session, this);
+            window = new SessionWindow(Name, old, Session, this);
             window.FormClosed += Window_FormClosed;
 
             Metingen = new List<Meting>();
@@ -40,11 +43,14 @@ namespace ErgometerDoctorApplication
             switch (command.Type)
             {
                 case NetCommand.CommandType.DATA:
-                    lock(Metingen)
+                    if (!IsOldData)
                     {
-                        Metingen.Add(command.Meting);
+                        lock (Metingen)
+                        {
+                            Metingen.Add(command.Meting);
+                        }
+                        window.Invoke(window.updateMetingen, new Object[] { command.Meting });
                     }
-                    window.Invoke(window.updateMetingen, new Object[] { command.Meting });
                     break;
                 case NetCommand.CommandType.CHAT:
                     ChatMessage chat = new ChatMessage(command.DisplayName, command.ChatMessage, false);
@@ -67,7 +73,14 @@ namespace ErgometerDoctorApplication
 
         private void sendCommand(NetCommand command)
         {
-            MainClient.SendNetCommand(command);
+            if(! IsOldData)
+                MainClient.SendNetCommand(command);
+        }
+
+        public void HandMetingen(List<Meting> metingen)
+        {
+            Metingen = metingen;
+            window.Invoke(window.updateMetingen, new Object[] { new Meting(0,0,0,0,0,0,0,0,0) });
         }
         
     }

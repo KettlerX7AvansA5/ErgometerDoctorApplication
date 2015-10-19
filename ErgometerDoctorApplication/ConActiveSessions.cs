@@ -83,6 +83,8 @@ namespace ErgometerDoctorApplication
             this.Controls.Add(flowlayout);
 
             //this.Controls.Add(data);
+
+            updateActiveSessions(MainClient.activesessions);
             
         }
 

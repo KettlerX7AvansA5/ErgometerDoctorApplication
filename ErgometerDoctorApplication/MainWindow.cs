@@ -13,11 +13,15 @@ namespace ErgometerDoctorApplication
 {
     public partial class MainWindow : Form
     {
+        private bool request;
+
         public MainWindow()
         {
             InitializeComponent();
             conPanelLogin.BringToFront();
-            updateTimer.Start();
+            request = false;
+            //updateTimer.Start();
+            
         }
 
         private void BtnActiveSessions_Click(object sender, EventArgs e)
@@ -46,22 +50,23 @@ namespace ErgometerDoctorApplication
             */
         }
 
-        private void BtnSessionLibrary_Click(object sender, EventArgs e)
-        {
-            this.HeaderLabel.Text = "Bibliotheek";
-            conSessionLibrary.BringToFront();
-        }
-
         private void BtnClientData_Click(object sender, EventArgs e)
         {
             this.HeaderLabel.Text = "Clientenbestand";
             conClientData.BringToFront();
+
+            if (MainClient.users.Count > 0)
+            {
+                conClientData.updateUsers(MainClient.users);
+            }
         }
 
         private void BtnSessionHistory_Click(object sender, EventArgs e)
         {
             this.HeaderLabel.Text = "Sessie geschiedenis";
             conSessionHistory.BringToFront();
+
+            MainClient.StartOldCLient("Test", 2001739555);
         }
         public void validateLogin()
         {
@@ -108,7 +113,12 @@ namespace ErgometerDoctorApplication
 
         private void updateTimer_tick(object sender, EventArgs e)
         {
-            MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, MainClient.Session));
+            if (request)
+                MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, MainClient.Session));
+            else
+                MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, MainClient.Session));
+
+            request = !request;
         }
     }
 }

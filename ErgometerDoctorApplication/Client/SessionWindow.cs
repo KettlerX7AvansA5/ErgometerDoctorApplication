@@ -25,9 +25,9 @@ namespace ErgometerDoctorApplication
         public delegate void UpdateMetingen(Meting m);
         public UpdateMetingen updateMetingen;
 
-        public SessionWindow(string ClientName, bool ActiveSessionm, int session, ClientThread parentthread)
+        public SessionWindow(string ClientName, bool old, int session, ClientThread parentthread)
         {
-            this.ActiveSession = ActiveSession;
+            this.ActiveSession = !old;
             this.ClientName = ClientName;
             this.client = parentthread;
             Session = session;
@@ -38,7 +38,8 @@ namespace ErgometerDoctorApplication
 
             InitializeComponent();
 
-            Form.CheckForIllegalCrossThreadCalls = false;
+            if (!ActiveSession)
+                panelClientChat.Visible = false;
         }
 
         public void ClientApplicatie_Resize(object sender, EventArgs e)

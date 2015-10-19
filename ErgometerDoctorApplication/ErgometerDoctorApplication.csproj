@@ -83,9 +83,6 @@
     <Compile Include="ConActiveSessions.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ConSessionLibrary.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MainClient.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>

@@ -62,7 +62,7 @@ namespace ErgometerDoctorApplication
                 {
                     Server.Connect(HOST, PORT);
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     error = "Server is niet online.";
                     return false;
@@ -121,19 +121,31 @@ namespace ErgometerDoctorApplication
                 if (Server.Connected && Server.Available > 0)
                 {
                     NetCommand command = NetHelper.ReadNetCommand(Server);
-                    switch(command.Type)
+                    Console.WriteLine(command.Type.ToString());
+                    switch (command.Type)
                     {
                         case NetCommand.CommandType.LENGTH:
-                            switch(command.Length)
+                            Console.WriteLine(command.Length.ToString() + " : " + command.LengthValue);
+                            switch (command.Length)
                             {
                                 case NetCommand.LengthType.USERS:
-                                    users.Clear();
-                                    for(int i=0; i<command.LengthValue; i++)
+                                    lock (users)
                                     {
-                                        NetCommand c = NetHelper.ReadNetCommand(Server);
-                                        if(c.Type == NetCommand.CommandType.USER)
+                                        users.Clear();
+                                        for (int i = 0; i < command.LengthValue; i++)
                                         {
-                                            users.Add(c.DisplayName, c.Password);
+                                            NetCommand c = NetHelper.ReadNetCommand(Server);
+                                            if (c.Type == NetCommand.CommandType.USER)
+                                            {
+                                                try
+                                                {
+                                                    users.Add(c.DisplayName, c.Password);
+                                                }
+                                                catch (ArgumentException e)
+                                                {
+                                                    // ignore double username
+                                                }
+                                            }
                                         }
                                     }
                                     break;
@@ -159,6 +171,21 @@ namespace ErgometerDoctorApplication
                                         }
                                     }
                                     break;
+                                case NetCommand.LengthType.DATA:
+                                    Console.WriteLine(command);
+                                    List<Meting> metingen = new List<Meting>();
+                                    for (int i = 0; i < command.LengthValue; i++)
+                                    {
+                                        NetCommand c = NetHelper.ReadNetCommand(Server);
+                                        Console.WriteLine(c);
+                                        if (c.Type == NetCommand.CommandType.DATA)
+                                        {
+                                            metingen.Add(c.Meting);
+                                        }
+                                    }
+
+                                    HandMetingenToClient(metingen, command.Session);
+                                    break;
                                 default:
                                     throw new FormatException("Error in NetCommand: Length type is not recognised");
                             }
@@ -170,7 +197,7 @@ namespace ErgometerDoctorApplication
                             HandToClient(command);
                             break;
                     }
-                    
+
                 }
             }
 
@@ -179,11 +206,22 @@ namespace ErgometerDoctorApplication
 
         private static void HandToClient(NetCommand command)
         {
-            foreach(ClientThread cl in clients)
+            foreach (ClientThread cl in clients)
             {
-                if(cl.Session == command.Session)
+                if (cl.Session == command.Session)
                 {
                     cl.HandleCommand(command);
+                }
+            }
+        }
+
+        private static void HandMetingenToClient(List<Meting> metingen, int session)
+        {
+            foreach (ClientThread cl in clients)
+            {
+                if (cl.Session == session)
+                {
+                    cl.HandMetingen(metingen);
                 }
             }
         }
@@ -195,7 +233,7 @@ namespace ErgometerDoctorApplication
 
         private static bool IsSessionRunning(int session)
         {
-            foreach(ClientThread cl in clients)
+            foreach (ClientThread cl in clients)
             {
                 if (cl.Session == session)
                     return true;
@@ -210,7 +248,24 @@ namespace ErgometerDoctorApplication
                 return;
 
             //Start new client
-            ClientThread cl = new ClientThread(name, session);
+            ClientThread cl = new ClientThread(name, session, false);
+            clients.Add(cl);
+
+            //Run client on new thread
+            Thread thread = new Thread(new ThreadStart(cl.run));
+            thread.IsBackground = true;
+            thread.Start();
+        }
+
+        public static void StartOldCLient(string name, int session)
+        {
+            if (IsSessionRunning(session))
+                return;
+
+            SendNetCommand(new NetCommand(NetCommand.RequestType.OLDDATA, session));
+
+            //Start new client
+            ClientThread cl = new ClientThread(name, session, true);
             clients.Add(cl);
 
             //Run client on new thread
