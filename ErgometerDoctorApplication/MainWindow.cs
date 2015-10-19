@@ -24,6 +24,7 @@ namespace ErgometerDoctorApplication
         {
             this.HeaderLabel.Text = "Actieve Sessies";
             conActiveSessions.BringToFront();
+            //conActiveSessions.data.Rows.Clear();
 
             if(MainClient.activesessions.Count > 0)
             {
@@ -34,6 +35,15 @@ namespace ErgometerDoctorApplication
             {
                 conActiveSessions.labelActiveSessions.Text = "Er zijn geen actieve sessies.";
             }
+
+            /*
+                str += client.Value + ", ";
+                MainClient.StartNewCLient(client.Value, client.Key);
+                conActiveSessions.data.Rows.Add(client.Value, client.Key);
+
+            //conActiveSessions.labelActiveSessions.Text = str;
+            Console.WriteLine(str);
+            */
         }
 
         private void BtnSessionLibrary_Click(object sender, EventArgs e)
