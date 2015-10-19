@@ -20,6 +20,32 @@ namespace ErgometerDoctorApplication
             this.ActiveSession = ActiveSession;
             this.ClientName = ClientName;
             InitializeComponent();
+
+            Form.CheckForIllegalCrossThreadCalls = false;
+        }
+
+        public void ClientApplicatie_Resize(object sender, EventArgs e)
+        {
+            Control control = (Control)sender;
+            if (control.Size.Width < 980)
+            {
+                panelGraphView.Visible = false;
+                panelClientChat.Width = 400;
+                panelDataViewLeft.Dock = DockStyle.Fill;
+            }
+            if (control.Size.Width >= 980 && control.Size.Width < 1368)
+            {
+                panelGraphView.Visible = true;
+                panelDataViewLeft.Width = 250;
+                panelClientChat.Width = 400;
+                panelDataViewLeft.Dock = DockStyle.Left;
+            }
+            if (control.Size.Width >= 1368)
+            {
+                panelGraphView.Visible = true;
+                panelDataViewLeft.Width = 400;
+                panelDataViewLeft.Dock = DockStyle.Left;
+            }
         }
     }
 }

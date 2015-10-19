@@ -15,6 +15,9 @@ namespace ErgometerDoctorApplication
 
         private SessionWindow window;
 
+        public List<Meting> Metingen { get; }
+        public List<ChatMessage> Chat { get; }
+
         public ClientThread(string name, int session)
         {
             Name = name;
@@ -22,6 +25,9 @@ namespace ErgometerDoctorApplication
 
             window = new SessionWindow(Name, true);
             window.FormClosed += Window_FormClosed;
+
+            Metingen = new List<Meting>();
+            Chat = new List<ChatMessage>();
         }
 
         private void Window_FormClosed(object sender, FormClosedEventArgs e)
@@ -33,7 +39,13 @@ namespace ErgometerDoctorApplication
         {
             switch(command.Type)
             {
-
+                case NetCommand.CommandType.DATA:
+                    SaveMeting(command.Meting);
+                    break;
+                case NetCommand.CommandType.CHAT:
+                    Chat.Add(new ChatMessage(Name, command.ChatMessage, false));
+                    window.panelClientChat.AddChatItem(command.ChatMessage);
+                    break;
             }
         }
 
@@ -53,5 +65,17 @@ namespace ErgometerDoctorApplication
             MainClient.SendNetCommand(command);
         }
 
+        public void SaveMeting(Meting m)
+        {
+            Metingen.Add(m);
+
+            window.heartBeat.updateValue(m.HeartBeat);
+            window.RPM.updateValue(m.RPM);
+            window.speed.updateValue(m.Speed);
+            window.distance.updateValue(m.Distance);
+            window.power.updateValue(m.Power);
+            window.energy.updateValue(m.Energy);
+            window.actualpower.updateValue(m.ActualPower);
+        }
     }
 }
