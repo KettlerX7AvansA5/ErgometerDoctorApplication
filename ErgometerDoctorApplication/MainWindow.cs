@@ -24,14 +24,16 @@ namespace ErgometerDoctorApplication
         {
             this.HeaderLabel.Text = "Actieve Sessies";
             conActiveSessions.BringToFront();
+            conActiveSessions.data.Rows.Clear();
 
             string str = "";
             foreach(KeyValuePair<int, string> client in MainClient.activesessions)
             {
                 str += client.Value + ", ";
                 MainClient.StartNewCLient(client.Value, client.Key);
+                conActiveSessions.data.Rows.Add(client.Value, client.Key);
             }
-            conActiveSessions.labelActiveSessions.Text = str;
+            //conActiveSessions.labelActiveSessions.Text = str;
             Console.WriteLine(str);
         }
 
