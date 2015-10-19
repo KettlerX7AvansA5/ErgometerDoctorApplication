@@ -10,7 +10,6 @@ namespace ErgometerDoctorApplication
 {
     public class ConActiveSessions : Panel
     {
-<<<<<<< HEAD
 
         private FlowLayoutPanel flowlayout;
 
@@ -59,7 +58,6 @@ namespace ErgometerDoctorApplication
             this.Name = "ConActiveSessions";
             this.Size = new System.Drawing.Size(584, 459);
             this.TabIndex = 0;
-<<<<<<< HEAD
             // 
             // labelActiveSessions
             // 
