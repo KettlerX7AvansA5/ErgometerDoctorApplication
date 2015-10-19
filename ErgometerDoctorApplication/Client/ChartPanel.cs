@@ -15,10 +15,12 @@ namespace ErgometerDoctorApplication
         private MetingType type;
         private ChartArea chartArea;
         private Series series;
+        private SeriesChartType ChartType;
 
-        public ChartPanel(MetingType type) : base()
+        public ChartPanel(MetingType type, SeriesChartType charttype) : base()
         {
             this.type = type;
+            this.ChartType = charttype;
 
             this.chart = new Chart();
             this.chartArea = new ChartArea();
@@ -57,7 +59,7 @@ namespace ErgometerDoctorApplication
         {
             Series serie = new Series();
             serie.Name = "series";
-            serie.ChartType = SeriesChartType.Line;
+            serie.ChartType = ChartType;
             serie.ChartArea = "chartArea";
             serie.BorderWidth = 3;
             return serie;

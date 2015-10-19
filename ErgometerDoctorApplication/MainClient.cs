@@ -12,7 +12,7 @@ namespace ErgometerDoctorApplication
     class MainClient
     {
 
-        public static TcpClient Server { get; }
+        public static TcpClient Server { get; set; }
 
         public static bool loggedin;
 
@@ -41,8 +41,6 @@ namespace ErgometerDoctorApplication
         {
             Server = new TcpClient();
 
-            t = new Thread(run);
-
             loggedin = false;
 
             clients = new List<ClientThread>();
@@ -55,8 +53,11 @@ namespace ErgometerDoctorApplication
         {
             error = "Succes";
 
-            if (!Server.Connected)
+            if (Server == null || !Server.Connected)
             {
+                if (Server == null)
+                    Server = new TcpClient();
+
                 try
                 {
                     Server.Connect(HOST, PORT);
@@ -74,6 +75,7 @@ namespace ErgometerDoctorApplication
                     throw new Exception("Session not assigned");
 
                 running = true;
+                t = new Thread(run);
                 t.IsBackground = true;
                 t.Start();
             }
@@ -106,7 +108,9 @@ namespace ErgometerDoctorApplication
             {
                 NetHelper.SendNetCommand(Server, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
                 loggedin = false;
-                running = false; 
+                running = false;
+                Server.Close();
+                Server = null;
             }
         }
 
@@ -158,6 +162,9 @@ namespace ErgometerDoctorApplication
                                 default:
                                     throw new FormatException("Error in NetCommand: Length type is not recognised");
                             }
+                            break;
+                        case NetCommand.CommandType.ERROR:
+                            Console.WriteLine("An error occured, ignoring");
                             break;
                         default:
                             HandToClient(command);

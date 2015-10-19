@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace ErgometerDoctorApplication
 {
-    class ClientThread
+    public class ClientThread
     {
         public int Session { get; }
         public string Name { get; }
@@ -23,7 +23,7 @@ namespace ErgometerDoctorApplication
             Name = name;
             Session = session;
 
-            window = new SessionWindow(Name, true, Session);
+            window = new SessionWindow(Name, true, Session, this);
             window.FormClosed += Window_FormClosed;
 
             Metingen = new List<Meting>();
@@ -40,7 +40,11 @@ namespace ErgometerDoctorApplication
             switch (command.Type)
             {
                 case NetCommand.CommandType.DATA:
-                    SaveMeting(command.Meting);
+                    lock(Metingen)
+                    {
+                        Metingen.Add(command.Meting);
+                    }
+                    window.Invoke(window.updateMetingen, new Object[] { command.Meting });
                     break;
                 case NetCommand.CommandType.CHAT:
                     ChatMessage chat = new ChatMessage(command.DisplayName, command.ChatMessage, false);
@@ -65,18 +69,6 @@ namespace ErgometerDoctorApplication
         {
             MainClient.SendNetCommand(command);
         }
-
-        public void SaveMeting(Meting m)
-        {
-            Metingen.Add(m);
-
-            window.heartBeat.updateValue(m.HeartBeat);
-            window.RPM.updateValue(m.RPM);
-            window.speed.updateValue(m.Speed);
-            window.distance.updateValue(m.Distance);
-            window.power.updateValue(m.Power);
-            window.energy.updateValue(m.Energy);
-            window.actualpower.updateValue(m.ActualPower);
-        }
+        
     }
 }

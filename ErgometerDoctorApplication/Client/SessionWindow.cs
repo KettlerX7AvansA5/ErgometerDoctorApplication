@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErgometerLibrary;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,11 +18,24 @@ namespace ErgometerDoctorApplication
         private string ClientName { get; set; }
         public int Session { get; }
 
-        public SessionWindow(string ClientName, bool ActiveSessionm, int session)
+        private ClientThread client;
+
+        private int count;
+
+        public delegate void UpdateMetingen(Meting m);
+        public UpdateMetingen updateMetingen;
+
+        public SessionWindow(string ClientName, bool ActiveSessionm, int session, ClientThread parentthread)
         {
             this.ActiveSession = ActiveSession;
             this.ClientName = ClientName;
+            this.client = parentthread;
             Session = session;
+
+            count = 0;
+
+            updateMetingen = new UpdateMetingen(this.SaveMeting);
+
             InitializeComponent();
 
             Form.CheckForIllegalCrossThreadCalls = false;
@@ -49,6 +63,26 @@ namespace ErgometerDoctorApplication
                 panelDataViewLeft.Width = 400;
                 panelDataViewLeft.Dock = DockStyle.Left;
             }
+        }
+
+        public void SaveMeting(Meting m)
+        {
+          
+            heartBeat.updateValue(m.HeartBeat);
+            RPM.updateValue(m.RPM);
+            speed.updateValue(m.Speed);
+            distance.updateValue(m.Distance);
+            power.updateValue(m.Power);
+            energy.updateValue(m.Energy);
+            actualpower.updateValue(m.ActualPower);
+
+            if (count >= 10)
+            {
+                count = 0;
+                panelGraphView.updateAllCharts(client.Metingen);
+            }
+
+            count++;
         }
     }
 }

@@ -146,7 +146,7 @@ namespace ErgometerDoctorApplication
         #endregion
         private System.Windows.Forms.Panel panelClientContainer;
         public PanelClientChat panelClientChat;
-        private PanelGraphView panelGraphView;
+        public PanelGraphView panelGraphView;
         private System.Windows.Forms.Panel panelDataViewLeft;
         private System.Windows.Forms.Panel panelTopBar;
         private System.Windows.Forms.Label labelUsername;

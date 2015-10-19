@@ -10,31 +10,13 @@ namespace ErgometerDoctorApplication
 {
     public class ConActiveSessions : Panel
     {
-        public DataGridView data;
+
+        private FlowLayoutPanel flowlayout;
+
         public ConActiveSessions() : base()
         {
-            this.data = new DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
-            this.labelActiveSessions = new System.Windows.Forms.Label();
-            // 
-            // SongsTableView
-            // 
-            this.data.AllowUserToAddRows = false;
-            this.data.AllowUserToDeleteRows = false;
-            this.data.AllowUserToResizeRows = false;
-            this.data.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.data.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.data.Location = new System.Drawing.Point(0, 0);
-            this.data.MultiSelect = false;
-            this.data.Name = "Active Sessions";
-            this.data.ReadOnly = true;
-            this.data.RowHeadersVisible = false;
-            this.data.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.data.Size = new System.Drawing.Size(760, 172);
-            this.data.TabIndex = 0;
+            labelActiveSessions = new Label();
+
             // 
             // ConActiveSessions
             // 
@@ -53,11 +35,33 @@ namespace ErgometerDoctorApplication
             this.labelActiveSessions.Name = "labelActiveSessions";
             this.labelActiveSessions.Size = new System.Drawing.Size(103, 21);
             this.labelActiveSessions.TabIndex = 3;
-            this.labelActiveSessions.Text = "Geen actieve sessies.";
+            this.labelActiveSessions.Text = "Er zijn geen actieve sessies.";
+
+            flowlayout = new FlowLayoutPanel();
+
+            flowlayout.Dock = DockStyle.Fill;
+            flowlayout.BackColor = System.Drawing.Color.DarkGray;
+            flowlayout.Location = new System.Drawing.Point(0, 0);
+            flowlayout.Name = "flowlayout";
+            flowlayout.Padding = new Padding(15);
+            flowlayout.AutoScroll = true;
 
             this.Controls.Add(labelActiveSessions);
+            this.Controls.Add(flowlayout);
+            
         }
 
         public System.Windows.Forms.Label labelActiveSessions;
+
+        public void updateActiveSessions(Dictionary<int, string> actives)
+        {
+            flowlayout.Controls.Clear();
+
+            foreach (KeyValuePair<int, string> pair in actives)
+            {
+
+                flowlayout.Controls.Add(new SessionPanel(pair.Key, pair.Value));
+            }
+        }
     }
 }

@@ -52,26 +52,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChartPanel.cs">
+    <Compile Include="Client\ChartPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="SessionTable.cs">
+    <Compile Include="Client\ClientThread.cs" />
+    <Compile Include="Client\PanelClientChat.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ClientThread.cs" />
-    <Compile Include="PanelClientChat.cs">
+    <Compile Include="Client\PanelClientData.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PanelClientData.cs">
+    <Compile Include="Client\PanelGraphView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PanelGraphView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="SessionWindow.cs">
+    <Compile Include="Client\SessionWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SessionWindow.Designer.cs">
+    <Compile Include="Client\SessionWindow.Designer.cs">
       <DependentUpon>SessionWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="ConClientData.cs">
@@ -98,6 +95,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,7 +111,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="SessionWindow.resx">
+    <EmbeddedResource Include="Client\SessionWindow.resx">
       <DependentUpon>SessionWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
