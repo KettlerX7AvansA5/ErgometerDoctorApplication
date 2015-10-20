@@ -79,8 +79,8 @@ namespace ErgometerDoctorApplication
           
             heartBeat.updateValue(m.HeartBeat);
             RPM.updateValue(m.RPM);
-            speed.updateValue(m.Speed);
-            distance.updateValue(m.Distance);
+            speed.updateValue(m.Speed*100);
+            distance.updateValue(m.Distance*100);
             power.updateValue(m.Power);
             energy.updateValue(m.Energy);
             actualpower.updateValue(m.ActualPower);
