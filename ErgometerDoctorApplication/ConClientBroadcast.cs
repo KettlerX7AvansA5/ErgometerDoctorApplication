@@ -25,10 +25,10 @@ namespace ErgometerDoctorApplication
             // 
             // buttonLogin
             // 
-            this.buttonBroadcast.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.buttonBroadcast.Anchor = AnchorStyles.Left | AnchorStyles.Top;
             this.buttonBroadcast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonBroadcast.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonBroadcast.Location = new System.Drawing.Point(0, 180);
+            this.buttonBroadcast.Location = new System.Drawing.Point(200, 20);
             this.buttonBroadcast.Name = "buttonCreate";
             this.buttonBroadcast.Size = new System.Drawing.Size(168, 31);
             this.buttonBroadcast.TabIndex = 3;
@@ -38,8 +38,8 @@ namespace ErgometerDoctorApplication
             // 
             // textBoxPassword
             // 
-            this.textBoxBroadcast.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.textBoxBroadcast.Location = new System.Drawing.Point(0, 80);
+            this.textBoxBroadcast.Anchor = AnchorStyles.Left | AnchorStyles.Top;
+            this.textBoxBroadcast.Location = new System.Drawing.Point(20, 20);
             this.textBoxBroadcast.MaxLength = 16;
             this.textBoxBroadcast.Name = "textBoxPassword";
             this.textBoxBroadcast.Size = new System.Drawing.Size(167, 20);

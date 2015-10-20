@@ -16,40 +16,6 @@ namespace ErgometerDoctorApplication
         public ConActiveSessions() : base()
         {
             labelActiveSessions = new Label();
-
-			/*
-            this.data = new DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sessionId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // SongsTableView
-            // 
-            this.data.AllowUserToAddRows = false;
-            this.data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.name, this.sessionId});
-            this.data.AllowUserToDeleteRows = false;
-            this.data.AllowUserToResizeRows = false;
-            this.data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.data.Location = new System.Drawing.Point(0, 0);
-            this.data.MultiSelect = false;
-            this.data.Name = "Active Sessions";
-            this.data.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.data.Size = new System.Drawing.Size(760, 172);
-            this.data.TabIndex = 0;
-            this.data.CellContentClick += new DataGridViewCellEventHandler(this.data_CellContentClick);
-            // 
-            // name
-            // 
-            this.name.HeaderText = "Name";
-            this.name.Name = "Name";
-            // 
-            // sessionId
-            // 
-            this.sessionId.HeaderText = "Session ID";
-            this.sessionId.Name = "Session ID";
-			*/
             // 
             // ConActiveSessions
             // 
@@ -61,10 +27,10 @@ namespace ErgometerDoctorApplication
             // 
             // labelActiveSessions
             // 
-            this.labelActiveSessions.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelActiveSessions.Anchor = System.Windows.Forms.AnchorStyles.Top | AnchorStyles.Left;
             this.labelActiveSessions.AutoSize = true;
             this.labelActiveSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelActiveSessions.Location = new System.Drawing.Point(0, 50);
+            this.labelActiveSessions.Location = new System.Drawing.Point(20, 20);
             this.labelActiveSessions.Name = "labelActiveSessions";
             this.labelActiveSessions.Size = new System.Drawing.Size(103, 21);
             this.labelActiveSessions.TabIndex = 3;

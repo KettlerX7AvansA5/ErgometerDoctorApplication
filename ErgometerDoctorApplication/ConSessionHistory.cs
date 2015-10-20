@@ -23,10 +23,10 @@ namespace ErgometerDoctorApplication
             // 
             // labelSessionHistory
             // 
-            this.labelSessionHistory.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelSessionHistory.Anchor = System.Windows.Forms.AnchorStyles.Top | AnchorStyles.Left;
             this.labelSessionHistory.AutoSize = true;
             this.labelSessionHistory.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSessionHistory.Location = new System.Drawing.Point(0, 50);
+            this.labelSessionHistory.Location = new System.Drawing.Point(20, 20);
             this.labelSessionHistory.Name = "labelSessionHistory";
             this.labelSessionHistory.Size = new System.Drawing.Size(103, 21);
             this.labelSessionHistory.TabIndex = 3;
