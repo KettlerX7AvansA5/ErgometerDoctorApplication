@@ -50,7 +50,7 @@ namespace ErgometerDoctorApplication
                     window.Invoke(window.updateMetingen, new Object[] { command.Meting });
                     break;
                 case NetCommand.CommandType.CHAT:
-                    ChatMessage chat = new ChatMessage(command.DisplayName, command.ChatMessage, false);
+                    ChatMessage chat = new ChatMessage(command.DisplayName, command.ChatMessage, command.IsDoctor);
                     Chat.Add(chat);
                     window.panelClientChat.Invoke(window.panelClientChat.passChatMessage, new Object[] { chat });
                     break;

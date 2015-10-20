@@ -42,8 +42,11 @@ namespace ErgometerDoctorApplication
 
             InitializeComponent();
 
-            if (!ActiveSession)
-                panelClientChat.Visible = false;
+            if(! ActiveSession)
+            {
+                panelClientChat.richTextBox1.Enabled = false;
+                panelClientChat.button1.Enabled = false;
+            }
         }
 
         public void ClientApplicatie_Resize(object sender, EventArgs e)
