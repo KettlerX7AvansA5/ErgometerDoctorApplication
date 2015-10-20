@@ -247,7 +247,7 @@ namespace ErgometerDoctorApplication
             thread.Start();
         }
 
-        public static void StartOldCLient(string name, int session)
+        public static void StartOldClient(string name, int session)
         {
             if (IsSessionRunning(session))
                 return;

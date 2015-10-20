@@ -63,7 +63,7 @@ namespace ErgometerDoctorApplication
             if(IsNew)
                 MainClient.StartNewClient(Name, Session);
             else
-                MainClient.StartOldCLient(Name, Session);
+                MainClient.StartOldClient(Name, Session);
         }
 
         public System.Windows.Forms.Label labelName;
