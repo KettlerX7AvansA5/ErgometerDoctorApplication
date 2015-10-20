@@ -28,7 +28,7 @@ namespace ErgometerDoctorApplication
         //Server information
         public static List<ClientThread> clients;
         public static Dictionary<string, string> users;
-        public static List<int> oldsessions;
+        public static List<Tuple<string, double, int>> oldSessionsData;
 
         public static void RemoveActiveClient(ClientThread clientThread)
         {
@@ -45,8 +45,8 @@ namespace ErgometerDoctorApplication
 
             clients = new List<ClientThread>();
             users = new Dictionary<string, string>();
-            oldsessions = new List<int>();
             activesessions = new Dictionary<int, string>();
+            oldSessionsData = new List<Tuple<string, double, int>>();
         }
 
         public static bool Connect(string password, out string error)
@@ -157,7 +157,7 @@ namespace ErgometerDoctorApplication
                             UsersLength = command.LengthValue;
                             break;
                         case NetCommand.LengthType.SESSIONS:
-                            oldsessions.Clear();
+                            oldSessionsData.Clear();
                             SessionsBeingSent = true;
                             SessionsSent = 0;
                             SessionsLength = command.LengthValue;
@@ -184,15 +184,6 @@ namespace ErgometerDoctorApplication
                             UsersBeingSent = false;
                     }
                     break;
-                case NetCommand.CommandType.SESSION:
-                    if (SessionsBeingSent)
-                    {
-                        oldsessions.Add(command.Session);
-                        SessionsSent++;
-                        if (SessionsSent >= SessionsLength)
-                            SessionsBeingSent = false;
-                    }
-                    break;
                 case NetCommand.CommandType.SESSIONDATA:
                     if (ActiveSessionsBeingSent)
                     {
@@ -200,6 +191,13 @@ namespace ErgometerDoctorApplication
                         ActiveSessionsSent++;
                         if (ActiveSessionsSent >= ActiveSessionsLength)
                             ActiveSessionsBeingSent = false;
+                    }
+                    if (SessionsBeingSent)
+                    {
+                        oldSessionsData.Add(new Tuple<string, double, int>(command.DisplayName, command.Timestamp, command.Session));
+                        SessionsSent++;
+                        if (SessionsSent >= SessionsLength)
+                            SessionsBeingSent = false;
                     }
                     break;
                 default:
