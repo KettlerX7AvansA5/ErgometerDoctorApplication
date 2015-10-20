@@ -96,7 +96,7 @@ namespace ErgometerDoctorApplication
                 loggedin = true;
             }
 
-            SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, Session));
+            //SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, Session));
             SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, Session));
 
             return true;
@@ -256,6 +256,7 @@ namespace ErgometerDoctorApplication
                 return;
 
             SendNetCommand(new NetCommand(NetCommand.RequestType.OLDDATA, session));
+            SendNetCommand(new NetCommand(NetCommand.RequestType.CHAT, session));
 
             //Start new client
             ClientThread cl = new ClientThread(name, session, true);
