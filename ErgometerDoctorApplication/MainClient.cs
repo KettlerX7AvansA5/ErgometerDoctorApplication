@@ -122,7 +122,6 @@ namespace ErgometerDoctorApplication
                 if (loggedin && Server.Connected && Server.Available > 0)
                 {
                     NetCommand command = NetHelper.ReadNetCommand(Server);
-                    Console.WriteLine(command.Type.ToString() + " # " + command);
                     HandleNetCommand(command);
 
                 }
@@ -233,7 +232,7 @@ namespace ErgometerDoctorApplication
             return false;
         }
 
-        public static void StartNewCLient(string name, int session)
+        public static void StartNewClient(string name, int session)
         {
             if (IsSessionRunning(session))
                 return;

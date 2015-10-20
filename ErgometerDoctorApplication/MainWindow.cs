@@ -129,8 +129,11 @@ namespace ErgometerDoctorApplication
                 MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, MainClient.Session));
             else if (request == 1)
                 MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, MainClient.Session));
-            else if(request == 2)
+            else if (request == 2)
+            {
+                Console.WriteLine("Requesting all old sessions");
                 MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.ALLSESSIONS, MainClient.Session));
+            }
 
             request ++;
             if (request > 2)

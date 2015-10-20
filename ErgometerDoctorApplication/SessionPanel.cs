@@ -6,12 +6,14 @@ namespace ErgometerDoctorApplication
     {
         private int Session;
         private string Name;
+        private bool IsNew;
 
-        public SessionPanel(int session, string name) : base()
+        public SessionPanel(int session, string name, bool isNew) : base()
         {
 
             Session = session;
             Name = name;
+            IsNew = isNew;
 
             this.Location = new System.Drawing.Point(0, 0);
             this.Size = new System.Drawing.Size(180, 100);
@@ -58,7 +60,10 @@ namespace ErgometerDoctorApplication
 
         private void SessionPanel_Click(object sender, System.EventArgs e)
         {
-            MainClient.StartNewCLient(Name, Session);
+            if(IsNew)
+                MainClient.StartNewClient(Name, Session);
+            else
+                MainClient.StartOldCLient(Name, Session);
         }
 
         public System.Windows.Forms.Label labelName;

@@ -118,7 +118,7 @@ namespace ErgometerDoctorApplication
             //
             // updateTimer
             //
-            this.updateTimer.Interval = 6000;
+            this.updateTimer.Interval = 3000;
             this.updateTimer.Tick += new EventHandler(this.updateTimer_tick);
             // 
             // label1

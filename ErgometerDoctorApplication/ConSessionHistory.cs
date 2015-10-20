@@ -52,13 +52,13 @@ namespace ErgometerDoctorApplication
 
         public System.Windows.Forms.Label labelSessionHistory;
 
-        public void updateHistory(List<Tuple<string, double, int>> actives)
+        public void updateHistory(List<Tuple<string, double, int>> historys)
         {
             flowlayout.Controls.Clear();
 
-            foreach (Tuple<string,double,int> sessiondata in actives)
+            foreach (Tuple<string,double,int> sessiondata in historys)
             {
-                flowlayout.Controls.Add(new SessionPanel(sessiondata.Item3, sessiondata.Item1));
+                flowlayout.Controls.Add(new SessionPanel(sessiondata.Item3, sessiondata.Item1, false));
             }
         }
     }
