@@ -46,6 +46,7 @@ namespace ErgometerDoctorApplication
             {
                 panelClientChat.richTextBox1.Enabled = false;
                 panelClientChat.button1.Enabled = false;
+                panelDataViewLeft.Visible = false;
             }
         }
 

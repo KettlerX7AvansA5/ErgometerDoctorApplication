@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErgometerDoctorApplication.Client;
+using System;
 
 namespace ErgometerDoctorApplication
 {
@@ -36,6 +37,7 @@ namespace ErgometerDoctorApplication
             this.components = new System.ComponentModel.Container();
             this.panelClientContainer = new System.Windows.Forms.Panel();
             this.panelDataViewLeft = new System.Windows.Forms.Panel();
+            this.panelClientSetData = new PanelClientSetData();
             this.panelGraphView = new ErgometerDoctorApplication.PanelGraphView();
             this.panelClientChat = new ErgometerDoctorApplication.PanelClientChat(Session, ClientName);
             this.panelTopBar = new System.Windows.Forms.Panel();
@@ -80,6 +82,7 @@ namespace ErgometerDoctorApplication
             this.panelDataViewLeft.Controls.Add(power);
             this.panelDataViewLeft.Controls.Add(energy);
             this.panelDataViewLeft.Controls.Add(actualpower);
+            this.panelDataViewLeft.Controls.Add(panelClientSetData);
 
             // 
             // panelClientChat
@@ -152,6 +155,7 @@ namespace ErgometerDoctorApplication
         private System.Windows.Forms.Label labelUsername;
         private System.Windows.Forms.Label labelHallo;
         public PanelClientData heartBeat, RPM, speed, distance, power, energy, seconds, actualpower;
+        public PanelClientSetData panelClientSetData;
 
         private void createTitle()
         {
