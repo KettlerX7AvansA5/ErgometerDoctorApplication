@@ -96,8 +96,12 @@ namespace ErgometerDoctorApplication
                 loggedin = true;
             }
 
-            //SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, Session));
+            
             SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, Session));
+            Thread.Sleep(15);
+            SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, Session));
+
+            Thread.Sleep(200);
 
             return true;
         }
@@ -105,7 +109,7 @@ namespace ErgometerDoctorApplication
         public static void Disconnect()
         {
 
-            if (Server.Connected)
+            if (Server != null && Server.Connected)
             {
                 NetHelper.SendNetCommand(Server, new NetCommand(NetCommand.CommandType.LOGOUT, Session));
                 loggedin = false;
@@ -127,7 +131,8 @@ namespace ErgometerDoctorApplication
                 }
             }
 
-            Server.Close();
+            if(Server != null)
+                Server.Close();
         }
 
         private static bool UsersBeingSent = false;
@@ -218,7 +223,10 @@ namespace ErgometerDoctorApplication
 
         public static void SendNetCommand(NetCommand command)
         {
-            NetHelper.SendNetCommand(Server, command);
+            if(! NetHelper.SendNetCommand(Server, command))
+            {
+                Disconnect();
+            }
         }
 
         private static bool IsSessionRunning(int session)
