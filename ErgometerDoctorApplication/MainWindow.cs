@@ -67,7 +67,7 @@ namespace ErgometerDoctorApplication
             this.HeaderLabel.Text = "Sessie geschiedenis";
             conSessionHistory.BringToFront();
 
-            MainClient.StartOldCLient("Test", 1907047993);
+            MainClient.StartOldCLient("Test", 315896171);
         }
         public void validateLogin()
         {
