@@ -13,13 +13,13 @@ namespace ErgometerDoctorApplication
 {
     public partial class MainWindow : Form
     {
-        private bool request;
+        private int request;
 
         public MainWindow()
         {
             InitializeComponent();
             conPanelLogin.BringToFront();
-            request = false;
+            request = 0;
             updateTimer.Start();
             
         }
@@ -67,7 +67,18 @@ namespace ErgometerDoctorApplication
             this.HeaderLabel.Text = "Sessie geschiedenis";
             conSessionHistory.BringToFront();
 
-            MainClient.StartOldCLient("Test", 315896171);
+            //MainClient.StartOldCLient("Test", 1148735907);
+
+            if (MainClient.oldSessionsData.Count > 0)
+            {
+                conSessionHistory.labelSessionHistory.Text = "";
+                conSessionHistory.updateHistory(MainClient.oldSessionsData);
+            }
+            else
+            {
+                conSessionHistory.updateHistory(MainClient.oldSessionsData);
+                conSessionHistory.labelSessionHistory.Text = "Er zijn geen oude sessies.";
+            }
         }
         public void validateLogin()
         {
@@ -114,12 +125,18 @@ namespace ErgometerDoctorApplication
 
         private void updateTimer_tick(object sender, EventArgs e)
         {
-            if (request)
+            if (request == 0)
                 MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, MainClient.Session));
-            else
+            else if (request == 1)
                 MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, MainClient.Session));
+            else if(request == 2)
+                MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.ALLSESSIONS, MainClient.Session));
 
-            request = !request;
+            request ++;
+            if (request > 2)
+            {
+                request = 0;
+            }
         }
     }
 }
