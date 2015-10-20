@@ -37,7 +37,7 @@ namespace ErgometerDoctorApplication
             this.components = new System.ComponentModel.Container();
             this.panelClientContainer = new System.Windows.Forms.Panel();
             this.panelDataViewLeft = new System.Windows.Forms.Panel();
-            this.panelClientSetData = new PanelClientSetData();
+            this.panelClientSetData = new PanelClientSetData(Session);
             this.panelGraphView = new ErgometerDoctorApplication.PanelGraphView();
             this.panelClientChat = new ErgometerDoctorApplication.PanelClientChat(Session, ClientName);
             this.panelTopBar = new System.Windows.Forms.Panel();
@@ -69,12 +69,13 @@ namespace ErgometerDoctorApplication
             // 
             // panelDataViewLeft
             // 
-            this.panelDataViewLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            //this.panelDataViewLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelDataViewLeft.Location = new System.Drawing.Point(0, 0);
             this.panelDataViewLeft.Name = "panelDataViewLeft";
             this.panelDataViewLeft.Size = new System.Drawing.Size(18, 600);
             this.panelDataViewLeft.TabIndex = 3;
             this.panelDataViewLeft.BackColor = System.Drawing.Color.Gray;
+            this.panelDataViewLeft.Controls.Add(panelClientSetData);
             this.panelDataViewLeft.Controls.Add(heartBeat);
             this.panelDataViewLeft.Controls.Add(RPM);
             this.panelDataViewLeft.Controls.Add(speed);
@@ -82,7 +83,7 @@ namespace ErgometerDoctorApplication
             this.panelDataViewLeft.Controls.Add(power);
             this.panelDataViewLeft.Controls.Add(energy);
             this.panelDataViewLeft.Controls.Add(actualpower);
-            this.panelDataViewLeft.Controls.Add(panelClientSetData);
+
 
             // 
             // panelClientChat

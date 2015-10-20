@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ErgometerLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,11 @@ namespace ErgometerDoctorApplication.Client
         private Button buttonTijd;
         private TextBox textBox1;
 
-        public PanelClientSetData() : base()
+        private int Session;
+
+        public PanelClientSetData(int session) : base()
         {
+            Session = session;
             this.panel6 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -54,15 +58,7 @@ namespace ErgometerDoctorApplication.Client
             // 
             // panel1
             // 
-            Controls.Add(this.panel6);
-            Controls.Add(this.panel5);
-            Controls.Add(this.panel3);
-            Controls.Add(this.panel2);
-            Dock = System.Windows.Forms.DockStyle.Bottom;
-            Location = new System.Drawing.Point(0, 0);
-            Name = "panel1";
-            Size = new System.Drawing.Size(370, 311);
-            TabIndex = 1;
+            
             // 
             // panel6
             // 
@@ -239,21 +235,31 @@ namespace ErgometerDoctorApplication.Client
             this.buttonTrapsnelheid.Text = "Set";
             this.buttonTrapsnelheid.UseVisualStyleBackColor = false;
             this.buttonTrapsnelheid.Click += new System.EventHandler(this.buttonTrapsnelheid_Click);
+
+            Controls.Add(this.panel6);
+            Controls.Add(this.panel5);
+            Controls.Add(this.panel3);
+            Controls.Add(this.panel2);
+            Dock = System.Windows.Forms.DockStyle.Fill;
+            Location = new System.Drawing.Point(0, 0);
+            Name = "panel1";
+            Size = new System.Drawing.Size(370, 400);
+
         }
 
         private void buttonTrapsnelheid_Click(object sender, EventArgs e)
         {
-            //trackbar
+            MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.POWER, trackBar1.Value, Session));
         }
 
         private void buttonAfstand_Click(object sender, EventArgs e)
         {
-            //textbox2
+            MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.DISTANCE, int.Parse(textBox2.Text), Session));
         }
 
         private void buttonTijd_Click(object sender, EventArgs e)
         {
-            //textbox1
+            MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.TIME, int.Parse(textBox1.Text), Session));
         }
 
     }
