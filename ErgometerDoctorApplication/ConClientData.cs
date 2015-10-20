@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -44,6 +45,7 @@ namespace ErgometerDoctorApplication
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(167, 20);
             this.textBoxPassword.TabIndex = 2;
+            this.textBoxPassword.KeyDown += TextBoxEnterPress;
             // 
             // textBoxUsername
             // 
@@ -53,6 +55,7 @@ namespace ErgometerDoctorApplication
             this.textBoxUsername.Name = "textBoxUsername";
             this.textBoxUsername.Size = new System.Drawing.Size(167, 20);
             this.textBoxUsername.TabIndex = 2;
+            this.textBoxUsername.KeyDown += TextBoxEnterPress;
             //
             // listUsers
             //
@@ -82,6 +85,14 @@ namespace ErgometerDoctorApplication
             this.BackColor = System.Drawing.Color.White;
         }
 
+        private void TextBoxEnterPress(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonCreate_Click(this, new EventArgs());
+            }
+        }
+
         internal void updateUsers(Dictionary<string, string> users)
         {
             this.listUsers.Items.Clear();
@@ -94,8 +105,19 @@ namespace ErgometerDoctorApplication
 
         private void buttonCreate_Click(object sender, EventArgs e)
         {
-            MainClient.SendNetCommand(new NetCommand(textBoxUsername.Text, textBoxPassword.Text, MainClient.Session));
-            MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, MainClient.Session));
+            if (!MainClient.users.ContainsKey(textBoxUsername.Text))
+            {
+                MainClient.SendNetCommand(new NetCommand(textBoxUsername.Text, textBoxPassword.Text, MainClient.Session));
+                MainClient.SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, MainClient.Session));
+
+                textBoxUsername.Text = "";
+
+                Thread.Sleep(250);
+                updateUsers(MainClient.users);
+            }
+
+            
+            textBoxPassword.Text = "";
         }
     }
 }
