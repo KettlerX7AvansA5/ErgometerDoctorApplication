@@ -58,7 +58,7 @@ namespace ErgometerDoctorApplication.Client
             // 
             // panel1
             // 
-            
+
             // 
             // panel6
             // 
@@ -159,6 +159,7 @@ namespace ErgometerDoctorApplication.Client
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(77, 25);
             this.textBox1.TabIndex = 1;
+            this.textBox1.KeyDown += TextBox1_KeyDown;
             // 
             // textBox2
             // 
@@ -168,6 +169,7 @@ namespace ErgometerDoctorApplication.Client
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(77, 25);
             this.textBox2.TabIndex = 1;
+            this.textBox2.KeyDown += TextBox2_KeyDown;
             // 
             // trackBar1
             // 
@@ -247,6 +249,22 @@ namespace ErgometerDoctorApplication.Client
 
         }
 
+        private void TextBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                buttonAfstand_Click(this, new EventArgs());
+            }
+        }
+
+        private void TextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                buttonTijd_Click(this, new EventArgs());
+            }
+        }
+
         private void buttonTrapsnelheid_Click(object sender, EventArgs e)
         {
             MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.POWER, trackBar1.Value, Session));
@@ -255,11 +273,13 @@ namespace ErgometerDoctorApplication.Client
         private void buttonAfstand_Click(object sender, EventArgs e)
         {
             MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.DISTANCE, int.Parse(textBox2.Text), Session));
+            textBox2.Text = "";
         }
 
         private void buttonTijd_Click(object sender, EventArgs e)
         {
             MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.TIME, int.Parse(textBox1.Text), Session));
+            textBox1.Text = "";
         }
 
     }
