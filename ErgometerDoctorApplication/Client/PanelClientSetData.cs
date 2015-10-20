@@ -283,6 +283,5 @@ namespace ErgometerDoctorApplication.Client
             MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.TIME, seconds, Session));
             textBox1.Text = "";
         }
-
     }
 }
