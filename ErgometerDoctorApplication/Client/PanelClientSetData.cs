@@ -26,7 +26,7 @@ namespace ErgometerDoctorApplication.Client
         private TextBox textBox2;
         private Label label5;
         private Button buttonTijd;
-        private TextBox textBox1;
+        private MaskedTextBox textBox1;
 
         private int Session;
 
@@ -41,7 +41,7 @@ namespace ErgometerDoctorApplication.Client
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.MaskedTextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.buttonTijd = new System.Windows.Forms.Button();
@@ -159,6 +159,7 @@ namespace ErgometerDoctorApplication.Client
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(77, 25);
             this.textBox1.TabIndex = 1;
+            this.textBox1.Mask = "00:00";
             this.textBox1.KeyDown += TextBox1_KeyDown;
             // 
             // textBox2
@@ -278,7 +279,8 @@ namespace ErgometerDoctorApplication.Client
 
         private void buttonTijd_Click(object sender, EventArgs e)
         {
-            MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.TIME, int.Parse(textBox1.Text), Session));
+            int seconds = (int.Parse(textBox1.Text.Split(':')[0]) * 60) + int.Parse(textBox1.Text.Split(':')[1]);
+            MainClient.SendNetCommand(new NetCommand(NetCommand.ValueType.TIME, seconds, Session));
             textBox1.Text = "";
         }
 
