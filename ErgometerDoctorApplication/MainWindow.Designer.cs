@@ -34,6 +34,7 @@ namespace ErgometerDoctorApplication
             this.MenuPanel = new System.Windows.Forms.Panel();
             this.BtnLogout = new System.Windows.Forms.Button();
             this.BtnSessionHistory = new System.Windows.Forms.Button();
+            this.BtnBroadcast = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnClientData = new System.Windows.Forms.Button();
@@ -50,6 +51,7 @@ namespace ErgometerDoctorApplication
             this.conActiveSessions = new ErgometerDoctorApplication.ConActiveSessions();
             this.conClientData = new ErgometerDoctorApplication.ConClientData();
             this.conSessionHistory = new ErgometerDoctorApplication.ConSessionHistory();
+            this.conClientBroadcast = new ErgometerDoctorApplication.ConClientBroadcast();
             this.conPanelLogin = new ErgometerDoctorApplication.ConPanelLogin(this);
             this.updateTimer = new Timer();
             MainContainer.Visible = false;
@@ -62,6 +64,7 @@ namespace ErgometerDoctorApplication
             this.MenuPanel.BackColor = System.Drawing.SystemColors.ControlLight;
             this.MenuPanel.Controls.Add(this.BtnLogout);
             this.MenuPanel.Controls.Add(this.BtnSessionHistory);
+            this.MenuPanel.Controls.Add(this.BtnBroadcast);
             this.MenuPanel.Controls.Add(this.label2);
             this.MenuPanel.Controls.Add(this.label1);
             this.MenuPanel.Controls.Add(this.BtnClientData);
@@ -96,7 +99,7 @@ namespace ErgometerDoctorApplication
             this.BtnSessionHistory.FlatAppearance.BorderSize = 0;
             this.BtnSessionHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.BtnSessionHistory.ForeColor = System.Drawing.Color.White;
-            this.BtnSessionHistory.Location = new System.Drawing.Point(0, 170);
+            this.BtnSessionHistory.Location = new System.Drawing.Point(0, 205);
             this.BtnSessionHistory.Name = "BtnSessionHistory";
             this.BtnSessionHistory.Size = new System.Drawing.Size(200, 35);
             this.BtnSessionHistory.TabIndex = 7;
@@ -107,7 +110,7 @@ namespace ErgometerDoctorApplication
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.label2.Location = new System.Drawing.Point(0, 145);
+            this.label2.Location = new System.Drawing.Point(0, 180);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 3, 6, 3);
             this.label2.Name = "label2";
             this.label2.Padding = new System.Windows.Forms.Padding(5, 4, 0, 0);
@@ -129,6 +132,21 @@ namespace ErgometerDoctorApplication
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(200, 50);
             this.label1.TabIndex = 5;
+            // 
+            // BtnBroadcast
+            // 
+            this.BtnBroadcast.BackColor = System.Drawing.Color.DarkGray;
+            this.BtnBroadcast.Dock = System.Windows.Forms.DockStyle.Top;
+            this.BtnBroadcast.FlatAppearance.BorderSize = 0;
+            this.BtnBroadcast.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.BtnBroadcast.ForeColor = System.Drawing.Color.White;
+            this.BtnBroadcast.Location = new System.Drawing.Point(0, 95);
+            this.BtnBroadcast.Name = "BtnBroadcast";
+            this.BtnBroadcast.Size = new System.Drawing.Size(200, 35);
+            this.BtnBroadcast.TabIndex = 7;
+            this.BtnBroadcast.Text = "Broadcast";
+            this.BtnBroadcast.UseVisualStyleBackColor = false;
+            this.BtnBroadcast.Click += new System.EventHandler(this.BtnBroadcast_Click);
             // 
             // BtnClientData
             // 
@@ -244,6 +262,7 @@ namespace ErgometerDoctorApplication
             this.MainContainer.Controls.Add(this.conActiveSessions);
             this.MainContainer.Controls.Add(this.conClientData);
             this.MainContainer.Controls.Add(this.conSessionHistory);
+            this.MainContainer.Controls.Add(this.conClientBroadcast);
             this.MainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MainContainer.Location = new System.Drawing.Point(200, 102);
             this.MainContainer.Name = "MainContainer";
@@ -255,12 +274,13 @@ namespace ErgometerDoctorApplication
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(700, 500);
-            this.MinimumSize = new System.Drawing.Size(550, 450);
+            this.MinimumSize = new System.Drawing.Size(650, 550);
             this.Controls.Add(this.MainContainer);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.MenuPanel);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.conPanelLogin);
+
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainWindow";
             this.Text = "Dokter applicatie";
@@ -278,6 +298,7 @@ namespace ErgometerDoctorApplication
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem viewToolStripMenuItem;
         private Button BtnActiveSessions;
+        private Button BtnBroadcast;
         private Button BtnLogout;
         private Button BtnSessionHistory;
         private Button BtnClientData;
@@ -292,7 +313,8 @@ namespace ErgometerDoctorApplication
         public ConSessionHistory conSessionHistory;
         public ConClientData conClientData;
         public ConPanelLogin conPanelLogin;
-        
+        public ConClientBroadcast conClientBroadcast;
+
     }
 }
 

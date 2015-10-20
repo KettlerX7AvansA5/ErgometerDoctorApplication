@@ -62,6 +62,12 @@ namespace ErgometerDoctorApplication
             }
         }
 
+        private void BtnBroadcast_Click(object sender, EventArgs e)
+        {
+            this.HeaderLabel.Text = "Broadcast";
+            conClientBroadcast.BringToFront();
+        }
+
         private void BtnSessionHistory_Click(object sender, EventArgs e)
         {
             this.HeaderLabel.Text = "Sessie geschiedenis";
