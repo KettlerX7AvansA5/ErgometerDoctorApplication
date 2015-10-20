@@ -17,8 +17,8 @@ namespace ErgometerDoctorApplication
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label connectionLabel;
@@ -153,7 +153,7 @@ namespace ErgometerDoctorApplication
             if (richTextBox1.TextLength > 1)
             {
                 AddChatItem(new ChatMessage("Doctor", richTextBox1.Text, true));
-                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, Session));
+                MainClient.SendNetCommand(new NetCommand(richTextBox1.Text, true, Session));
                 richTextBox1.ResetText();
             }
         }
