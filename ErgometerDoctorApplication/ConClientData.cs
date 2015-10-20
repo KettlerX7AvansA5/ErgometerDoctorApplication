@@ -60,7 +60,9 @@ namespace ErgometerDoctorApplication
             this.listUsers.Location = new System.Drawing.Point(0, 80);
             this.listUsers.Name = "listUsers";
             this.listUsers.Size = new System.Drawing.Size(200, 400);
+            this.listUsers.ItemHeight = 25;
             this.listUsers.Items.Add("No Users");
+            this.listUsers.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             this.Controls.Add(this.listUsers);
             this.Controls.Add(this.buttonCreate);
@@ -77,7 +79,7 @@ namespace ErgometerDoctorApplication
 
 
 
-            this.BackColor = System.Drawing.Color.Red;
+            this.BackColor = System.Drawing.Color.White;
         }
 
         internal void updateUsers(Dictionary<string, string> users)
