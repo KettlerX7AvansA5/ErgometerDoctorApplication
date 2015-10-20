@@ -58,7 +58,7 @@ namespace ErgometerDoctorApplication
 
             foreach (Tuple<string,double,int> sessiondata in historys)
             {
-                flowlayout.Controls.Add(new SessionPanel(sessiondata.Item3, sessiondata.Item1, false));
+                flowlayout.Controls.Add(new SessionPanel(sessiondata.Item3, sessiondata.Item1, false,sessiondata.Item2));
             }
         }
     }
