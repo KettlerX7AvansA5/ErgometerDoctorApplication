@@ -108,7 +108,6 @@ namespace ErgometerDoctorApplication.Client
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.buttonTijd);
             this.panel3.Controls.Add(this.textBox1);
@@ -137,7 +136,7 @@ namespace ErgometerDoctorApplication.Client
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(370, 52);
+            this.panel2.Size = new System.Drawing.Size(500, 52);
             this.panel2.TabIndex = 0;
             // 
             // label1
@@ -245,6 +244,7 @@ namespace ErgometerDoctorApplication.Client
             Controls.Add(this.panel2);
             Dock = System.Windows.Forms.DockStyle.Fill;
             Location = new System.Drawing.Point(0, 0);
+            BackColor = System.Drawing.Color.White;
             Name = "panel1";
             Size = new System.Drawing.Size(370, 400);
 
