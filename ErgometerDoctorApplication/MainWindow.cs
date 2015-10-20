@@ -20,7 +20,7 @@ namespace ErgometerDoctorApplication
             InitializeComponent();
             conPanelLogin.BringToFront();
             request = false;
-            //updateTimer.Start();
+            updateTimer.Start();
             
         }
 
@@ -37,6 +37,7 @@ namespace ErgometerDoctorApplication
             }
             else
             {
+                conActiveSessions.updateActiveSessions(MainClient.activesessions);
                 conActiveSessions.labelActiveSessions.Text = "Er zijn geen actieve sessies.";
             }
 
@@ -66,7 +67,7 @@ namespace ErgometerDoctorApplication
             this.HeaderLabel.Text = "Sessie geschiedenis";
             conSessionHistory.BringToFront();
 
-            MainClient.StartOldCLient("Test", 2001739555);
+            MainClient.StartOldCLient("Test", 1148735907);
         }
         public void validateLogin()
         {

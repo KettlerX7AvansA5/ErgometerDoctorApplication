@@ -64,7 +64,7 @@ namespace ErgometerDoctorApplication
             this.labelActiveSessions.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelActiveSessions.AutoSize = true;
             this.labelActiveSessions.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelActiveSessions.Location = new System.Drawing.Point(0, 0);
+            this.labelActiveSessions.Location = new System.Drawing.Point(0, 50);
             this.labelActiveSessions.Name = "labelActiveSessions";
             this.labelActiveSessions.Size = new System.Drawing.Size(103, 21);
             this.labelActiveSessions.TabIndex = 3;

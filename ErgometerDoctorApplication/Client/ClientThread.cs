@@ -43,14 +43,11 @@ namespace ErgometerDoctorApplication
             switch (command.Type)
             {
                 case NetCommand.CommandType.DATA:
-                    if (!IsOldData)
+                    lock (Metingen)
                     {
-                        lock (Metingen)
-                        {
-                            Metingen.Add(command.Meting);
-                        }
-                        window.Invoke(window.updateMetingen, new Object[] { command.Meting });
+                        Metingen.Add(command.Meting);
                     }
+                    window.Invoke(window.updateMetingen, new Object[] { command.Meting });
                     break;
                 case NetCommand.CommandType.CHAT:
                     ChatMessage chat = new ChatMessage(command.DisplayName, command.ChatMessage, false);
@@ -75,12 +72,6 @@ namespace ErgometerDoctorApplication
         {
             if(! IsOldData)
                 MainClient.SendNetCommand(command);
-        }
-
-        public void HandMetingen(List<Meting> metingen)
-        {
-            Metingen = metingen;
-            window.Invoke(window.updateMetingen, new Object[] { new Meting(0,0,0,0,0,0,0,0,0) });
         }
         
     }

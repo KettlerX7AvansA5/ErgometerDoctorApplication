@@ -25,6 +25,9 @@ namespace ErgometerDoctorApplication
         public delegate void UpdateMetingen(Meting m);
         public UpdateMetingen updateMetingen;
 
+        public delegate void UpdateGraph();
+        public UpdateGraph updateGraph;
+
         public SessionWindow(string ClientName, bool old, int session, ClientThread parentthread)
         {
             this.ActiveSession = !old;
@@ -35,6 +38,7 @@ namespace ErgometerDoctorApplication
             count = 0;
 
             updateMetingen = new UpdateMetingen(this.SaveMeting);
+            updateGraph = new UpdateGraph(this.LoadGraph);
 
             InitializeComponent();
 
@@ -84,6 +88,11 @@ namespace ErgometerDoctorApplication
             }
 
             count++;
+        }
+
+        public void LoadGraph()
+        {
+            panelGraphView.updateAllCharts(client.Metingen);
         }
     }
 }

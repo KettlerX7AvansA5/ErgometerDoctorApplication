@@ -96,6 +96,7 @@ namespace ErgometerDoctorApplication
                 loggedin = true;
             }
 
+            SendNetCommand(new NetCommand(NetCommand.RequestType.USERS, Session));
             SendNetCommand(new NetCommand(NetCommand.RequestType.SESSIONDATA, Session));
 
             return true;
@@ -118,90 +119,93 @@ namespace ErgometerDoctorApplication
         {
             while (running)
             {
-                if (Server.Connected && Server.Available > 0)
+                if (loggedin && Server.Connected && Server.Available > 0)
                 {
                     NetCommand command = NetHelper.ReadNetCommand(Server);
-                    Console.WriteLine(command.Type.ToString());
-                    switch (command.Type)
-                    {
-                        case NetCommand.CommandType.LENGTH:
-                            Console.WriteLine(command.Length.ToString() + " : " + command.LengthValue);
-                            switch (command.Length)
-                            {
-                                case NetCommand.LengthType.USERS:
-                                    lock (users)
-                                    {
-                                        users.Clear();
-                                        for (int i = 0; i < command.LengthValue; i++)
-                                        {
-                                            NetCommand c = NetHelper.ReadNetCommand(Server);
-                                            if (c.Type == NetCommand.CommandType.USER)
-                                            {
-                                                try
-                                                {
-                                                    users.Add(c.DisplayName, c.Password);
-                                                }
-                                                catch (ArgumentException e)
-                                                {
-                                                    // ignore double username
-                                                }
-                                            }
-                                        }
-                                    }
-                                    break;
-                                case NetCommand.LengthType.SESSIONS:
-                                    oldsessions.Clear();
-                                    for (int i = 0; i < command.LengthValue; i++)
-                                    {
-                                        NetCommand c = NetHelper.ReadNetCommand(Server);
-                                        if (c.Type == NetCommand.CommandType.SESSION)
-                                        {
-                                            oldsessions.Add(c.Session);
-                                        }
-                                    }
-                                    break;
-                                case NetCommand.LengthType.SESSIONDATA:
-                                    activesessions.Clear();
-                                    for (int i = 0; i < command.LengthValue; i++)
-                                    {
-                                        NetCommand c = NetHelper.ReadNetCommand(Server);
-                                        if (c.Type == NetCommand.CommandType.SESSIONDATA)
-                                        {
-                                            activesessions.Add(c.Session, c.DisplayName);
-                                        }
-                                    }
-                                    break;
-                                case NetCommand.LengthType.DATA:
-                                    Console.WriteLine(command);
-                                    List<Meting> metingen = new List<Meting>();
-                                    for (int i = 0; i < command.LengthValue; i++)
-                                    {
-                                        NetCommand c = NetHelper.ReadNetCommand(Server);
-                                        Console.WriteLine(c);
-                                        if (c.Type == NetCommand.CommandType.DATA)
-                                        {
-                                            metingen.Add(c.Meting);
-                                        }
-                                    }
-
-                                    HandMetingenToClient(metingen, command.Session);
-                                    break;
-                                default:
-                                    throw new FormatException("Error in NetCommand: Length type is not recognised");
-                            }
-                            break;
-                        case NetCommand.CommandType.ERROR:
-                            Console.WriteLine("An error occured, ignoring");
-                            break;
-                        default:
-                            HandToClient(command);
-                            break;
-                    }
+                    Console.WriteLine(command.Type.ToString() + " # " + command);
+                    HandleNetCommand(command);
 
                 }
             }
 
             Server.Close();
+        }
+
+        private static bool UsersBeingSent = false;
+        private static int UsersSent = 0;
+        private static int UsersLength = 0;
+
+        private static bool SessionsBeingSent = false;
+        private static int SessionsSent = 0;
+        private static int SessionsLength = 0;
+
+        private static bool ActiveSessionsBeingSent = false;
+        private static int ActiveSessionsSent = 0;
+        private static int ActiveSessionsLength = 0;
+
+        private static void HandleNetCommand(NetCommand command)
+        {
+            switch (command.Type)
+            {
+                case NetCommand.CommandType.LENGTH:
+                    switch (command.Length)
+                    {
+                        case NetCommand.LengthType.USERS:
+                            users.Clear();
+                            UsersBeingSent = true;
+                            UsersSent = 0;
+                            UsersLength = command.LengthValue;
+                            break;
+                        case NetCommand.LengthType.SESSIONS:
+                            oldsessions.Clear();
+                            SessionsBeingSent = true;
+                            SessionsSent = 0;
+                            SessionsLength = command.LengthValue;
+                            break;
+                        case NetCommand.LengthType.SESSIONDATA:
+                            activesessions.Clear();
+                            ActiveSessionsBeingSent = true;
+                            ActiveSessionsSent = 0;
+                            ActiveSessionsLength = command.LengthValue;
+                            break;
+                        default:
+                            throw new FormatException("Error in NetCommand: Length type is not recognised");
+                    }
+                    break;
+                case NetCommand.CommandType.ERROR:
+                    Console.WriteLine("An error occured, ignoring");
+                    break;
+                case NetCommand.CommandType.USER:
+                    if(UsersBeingSent)
+                    {
+                        users.Add(command.DisplayName, command.Password);
+                        UsersSent++;
+                        if (UsersSent >= UsersLength)
+                            UsersBeingSent = false;
+                    }
+                    break;
+                case NetCommand.CommandType.SESSION:
+                    if (SessionsBeingSent)
+                    {
+                        oldsessions.Add(command.Session);
+                        SessionsSent++;
+                        if (SessionsSent >= SessionsLength)
+                            SessionsBeingSent = false;
+                    }
+                    break;
+                case NetCommand.CommandType.SESSIONDATA:
+                    if (ActiveSessionsBeingSent)
+                    {
+                        activesessions.Add(command.Session, command.DisplayName);
+                        ActiveSessionsSent++;
+                        if (ActiveSessionsSent >= ActiveSessionsLength)
+                            ActiveSessionsBeingSent = false;
+                    }
+                    break;
+                default:
+                    HandToClient(command);
+                    break;
+            }
         }
 
         private static void HandToClient(NetCommand command)
@@ -211,17 +215,6 @@ namespace ErgometerDoctorApplication
                 if (cl.Session == command.Session)
                 {
                     cl.HandleCommand(command);
-                }
-            }
-        }
-
-        private static void HandMetingenToClient(List<Meting> metingen, int session)
-        {
-            foreach (ClientThread cl in clients)
-            {
-                if (cl.Session == session)
-                {
-                    cl.HandMetingen(metingen);
                 }
             }
         }
