@@ -35,7 +35,7 @@ namespace ErgometerDoctorApplication
             flowlayout = new FlowLayoutPanel();
 
             flowlayout.Dock = DockStyle.Fill;
-            flowlayout.BackColor = System.Drawing.Color.DarkGray;
+            flowlayout.BackColor = System.Drawing.Color.WhiteSmoke;
             flowlayout.Location = new System.Drawing.Point(0, 0);
             flowlayout.Name = "flowlayout";
             flowlayout.Padding = new Padding(15);

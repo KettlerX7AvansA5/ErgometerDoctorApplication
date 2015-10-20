@@ -5,7 +5,7 @@ namespace ErgometerDoctorApplication
     class SessionPanel : Panel
     {
         private int Session;
-        private string Name;
+        private string name;
         private bool IsNew;
         private double timestamp;
 
@@ -13,7 +13,7 @@ namespace ErgometerDoctorApplication
         {
             this.timestamp = timestamp;
             Session = session;
-            Name = name;
+            this.name = name;
             IsNew = isNew;
 
             this.Location = new System.Drawing.Point(0, 0);
@@ -80,9 +80,9 @@ namespace ErgometerDoctorApplication
         private void SessionPanel_Click(object sender, System.EventArgs e)
         {
             if(IsNew)
-                MainClient.StartNewClient(Name, Session);
+                MainClient.StartNewClient(name, Session);
             else
-                MainClient.StartOldClient(Name, Session);
+                MainClient.StartOldClient(name, Session);
         }
 
         public System.Windows.Forms.Label labelName;
