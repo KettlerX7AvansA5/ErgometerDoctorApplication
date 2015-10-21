@@ -69,7 +69,7 @@ namespace ErgometerDoctorApplication
             this.listUsers.Location = new System.Drawing.Point(20, -150);
             this.listUsers.Name = "listUsers";
             this.listUsers.Size = new System.Drawing.Size(200, 280);
-            this.listUsers.Items.Add("No Users");
+            this.listUsers.Items.Add("Geen gebruikers");
             //
             // newPassword
             //

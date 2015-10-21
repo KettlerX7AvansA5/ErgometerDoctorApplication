@@ -84,6 +84,7 @@ namespace ErgometerDoctorApplication
             power.updateValue(m.Power);
             energy.updateValue(m.Energy);
             actualpower.updateValue(m.ActualPower);
+            time.updateValue(m.Seconds);
 
             if (count >= 10)
             {
