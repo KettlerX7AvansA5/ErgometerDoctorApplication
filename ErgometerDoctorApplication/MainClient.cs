@@ -127,8 +127,9 @@ namespace ErgometerDoctorApplication
                 {
                     NetCommand command = NetHelper.ReadNetCommand(Server);
                     HandleNetCommand(command);
-
                 }
+                
+                Thread.Sleep(10);
             }
 
             if(Server != null)
